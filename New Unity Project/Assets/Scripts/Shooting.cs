@@ -7,19 +7,14 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
+    [Header("Bullet Settings")]
     public Transform firePoint;
-    public GameObject bulletPrefab;
-    Animator Anim;
-
-    public float bulletForce = 20f;
-
-    [Header("Firerate Settings")]
-    public float firerate = .05f;
     [SerializeField] float timer = 0f;
+    public ShootingsObj shootingScriptable;
 
     private void Start()
     {
-        //Anim = GetComponent<Animator>();
+        
     }
     // Update is called once per frame
     void Update()
@@ -28,19 +23,19 @@ public class Shooting : MonoBehaviour
         if (Input.GetButton("Fire1"))
         {
             Shoot();
-            //Anim.SetTrigger("Fire");
+            
         }
        
     }
 
     public void Shoot()
     {
-        if (timer < firerate) return;
+        if (timer < shootingScriptable.firerate) return;
 
         timer = 0f;
 
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        GameObject bullet = Instantiate(shootingScriptable.bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        rb.AddForce(firePoint.forward * bulletForce, ForceMode.Impulse);
+        rb.AddForce(firePoint.forward * shootingScriptable.bulletForce, ForceMode.Impulse);
     }
 }

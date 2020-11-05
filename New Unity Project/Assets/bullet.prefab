@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8d660ee7bc4aa54ea47a226ed5e6a44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  bulletScriptable: {fileID: 11400000, guid: 973d6091ecb71c447ad84944da8d16e9, type: 2}
 --- !u!96 &900914582052368122
 TrailRenderer:
   serializedVersion: 2
