@@ -39,6 +39,8 @@ AUnrealDataAssetsPawn::AUnrealDataAssetsPawn()
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("TopDownCamera"));
 	CameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	CameraComponent->bUsePawnControlRotation = false;	// Camera does not rotate relative to arm
+
+	bCanFire = true;
 }
 
 void AUnrealDataAssetsPawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -104,7 +106,7 @@ void AUnrealDataAssetsPawn::FireShot(FVector FireDirection, TSubclassOf<AUnrealD
 			if (World != NULL)
 			{
 				// spawn the projectile
-				World->SpawnActor<AUnrealDataAssetsProjectile>(SpawnLocation, FireRotation);
+				World->SpawnActor<AUnrealDataAssetsProjectile>(SubProjectile, SpawnLocation, FireRotation);
 			}
 
 			bCanFire = false;
