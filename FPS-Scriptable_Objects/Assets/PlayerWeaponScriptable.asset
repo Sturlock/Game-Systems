@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f015fc227c0d34b8ef7cdab7b08e6f, type: 3}
+  m_Name: PlayerWeaponScriptable
+  m_EditorClassIdentifier: 
+  startingWeapons:
+  - {fileID: 8587774576786866763, guid: 760a5cd9833938442ba8a4b54bfa8148, type: 3}
+  - {fileID: 521019951643201760, guid: a7112150bc902aa40a065439ad698c01, type: 3}
+  - {fileID: 6274258826675327207, guid: 4f2e46d4d4842c849a745f6e82991e57, type: 3}
+  startingAmmo:
+  - ammoType: 0
+    amount: 60
+  - ammoType: 2
+    amount: 2
+  - ammoType: 2
+    amount: 2

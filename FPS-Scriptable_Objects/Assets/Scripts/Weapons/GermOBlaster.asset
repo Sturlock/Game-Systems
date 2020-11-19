@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea357f98def5a544bbed0e472a1e229, type: 3}
+  m_Name: GermOBlaster
+  m_EditorClassIdentifier: 
+  triggerType: 1
+  weaponType: 0
+  fireRate: 0.5
+  reloadTime: 2
+  clipSize: 4
+  damage: 1
+  ammoType: 0
+  projectilePrefab: {fileID: 0}
+  projectileLaunchForce: 200
+  advancedSettings:
+    spreadAngle: 0
+    projectilePerShot: 1
+    screenShakeMultiplier: 1
+  FireAnimationClip: {fileID: 0}
+  ReloadAnimationClip: {fileID: 0}
+  FireAudioClip: {fileID: 0}
+  ReloadAudioClip: {fileID: 0}
+  PrefabRayTrail: {fileID: 0}
+  ammoDisplay: {fileID: 0}
