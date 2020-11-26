@@ -1,0 +1,1 @@
+{"myInt":10,"mySting":"oidsjaf","myFloat":0.46000000834465029,"myBool":true,"subObject":{"mySubInt":464,"mySubString":"something stringy"},"myIntArry":[2,564,156,46,15],"myVectorArray":[{"x":12.0,"y":51.0,"z":23.0},{"x":2.0,"y":1.0,"z":3.0},{"x":212.0,"y":451.0,"z":323.0}]}
