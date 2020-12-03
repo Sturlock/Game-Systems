@@ -46,13 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee602de95ca2984ea95a028bcd1cdde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestroyedOnHit: 0
-  TimeToDestroyed: 2.5
-  ReachRadius: 3
-  damage: 10
-  DestroyedSound: {fileID: 8300000, guid: 4a9a06c9694a13543bb6addd4101fcb1, type: 3}
-  PrefabOnDestruction: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c,
-    type: 3}
+  pillSriptable: {fileID: 11400000, guid: 29033b0a3000968499b72aa60bef2439, type: 2}
 --- !u!54 &3089532698898589659
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -20,7 +20,7 @@ public class AdvancedSettings
     public float spreadAngle = 0.0f;
     public int projectilePerShot = 1;
     public float screenShakeMultiplier = 1.0f;
-}
+}   
 public class Weapon_sObj : ScriptableObject
 {
     public TriggerType triggerType = TriggerType.Manual;
@@ -49,8 +49,7 @@ public class Weapon_sObj : ScriptableObject
     [Header("Visual Settings")]
     public LineRenderer PrefabRayTrail;
 
-    [Header("Visual Display")]
-    public AmmoDisplay ammoDisplay;
+    
 }
 
 #if UNITY_EDITOR
@@ -125,7 +124,7 @@ public class WeaponScriptableEditor : Editor
             EditorGUILayout.PropertyField(m_PrefabRayTrailProp);
         }
 
-        EditorGUILayout.PropertyField(m_AmmoDisplayProp);
+        
 
         serializedObject.ApplyModifiedProperties();
     }

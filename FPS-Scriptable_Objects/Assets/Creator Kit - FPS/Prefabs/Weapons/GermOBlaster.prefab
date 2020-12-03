@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponsObj: {fileID: 11400000, guid: 56a2b9d2a448e254f80edc4d066d64e9, type: 2}
+  ammoDisplay: {fileID: 1919817251683802923}
   EndPoint: {fileID: 9125261757865890827}
 --- !u!82 &4346231888284757310
 AudioSource:
@@ -175,41 +176,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmmoCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1855924953560784703, guid: 278b664212d79401587c44e39c1420cb,
-        type: 3}
-      propertyPath: m_FontData.m_MinSize
-      value: 175
-      objectReference: {fileID: 0}
-    - target: {fileID: 1855924953560784703, guid: 278b664212d79401587c44e39c1420cb,
-        type: 3}
-      propertyPath: m_FontData.m_MaxSize
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 1855924953560784703, guid: 278b664212d79401587c44e39c1420cb,
-        type: 3}
-      propertyPath: m_FontData.m_HorizontalOverflow
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1855924953560784703, guid: 278b664212d79401587c44e39c1420cb,
-        type: 3}
-      propertyPath: m_FontData.m_VerticalOverflow
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1855924953560784703, guid: 278b664212d79401587c44e39c1420cb,
-        type: 3}
-      propertyPath: m_FontData.m_BestFit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1855924953560784703, guid: 278b664212d79401587c44e39c1420cb,
-        type: 3}
-      propertyPath: m_FontData.m_AlignByGeometry
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1855924953560784703, guid: 278b664212d79401587c44e39c1420cb,
-        type: 3}
-      propertyPath: m_FontData.m_FontSize
-      value: 250
-      objectReference: {fileID: 0}
     - target: {fileID: 3129244498064337419, guid: 278b664212d79401587c44e39c1420cb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -325,8 +291,55 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.00038146973
       objectReference: {fileID: 0}
+    - target: {fileID: 1855924953560784703, guid: 278b664212d79401587c44e39c1420cb,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 175
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855924953560784703, guid: 278b664212d79401587c44e39c1420cb,
+        type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855924953560784703, guid: 278b664212d79401587c44e39c1420cb,
+        type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855924953560784703, guid: 278b664212d79401587c44e39c1420cb,
+        type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855924953560784703, guid: 278b664212d79401587c44e39c1420cb,
+        type: 3}
+      propertyPath: m_FontData.m_BestFit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855924953560784703, guid: 278b664212d79401587c44e39c1420cb,
+        type: 3}
+      propertyPath: m_FontData.m_AlignByGeometry
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855924953560784703, guid: 278b664212d79401587c44e39c1420cb,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 250
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 278b664212d79401587c44e39c1420cb, type: 3}
+--- !u!114 &1919817251683802923 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 299029795754515504, guid: 278b664212d79401587c44e39c1420cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 2198550043461616411}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afe22501cc537fe4b94f496c66ad6c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9125261757865758479
 PrefabInstance:
   m_ObjectHideFlags: 0

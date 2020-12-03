@@ -20,6 +20,9 @@ public class Weapon : MonoBehaviour
 
     public Weapon_sObj weaponsObj;
 
+    [Header("Visual Display")]
+    public AmmoDisplay ammoDisplay;
+
     public Transform EndPoint; 
     
     public bool triggerDown
@@ -130,8 +133,8 @@ public class Weapon : MonoBehaviour
         WeaponInfoUI.Instance.UpdateClipInfo(this);
         WeaponInfoUI.Instance.UpdateAmmoAmount(m_Owner.GetAmmo(weaponsObj.ammoType));
         
-        if(weaponsObj.ammoDisplay)
-            weaponsObj.ammoDisplay.UpdateAmount(m_ClipContent, weaponsObj.clipSize);
+        if(ammoDisplay)
+            ammoDisplay.UpdateAmount(m_ClipContent, weaponsObj.clipSize);
 
         if (m_ClipContent == 0 && ammoRemaining != 0)
         { 
@@ -139,8 +142,8 @@ public class Weapon : MonoBehaviour
             //reload the clip when weapon is selected          
             int chargeInClip = Mathf.Min(ammoRemaining, weaponsObj.clipSize);
             m_ClipContent += chargeInClip;        
-            if(weaponsObj.ammoDisplay)
-                weaponsObj.ammoDisplay.UpdateAmount(m_ClipContent, weaponsObj.clipSize);        
+            if(ammoDisplay)
+                ammoDisplay.UpdateAmount(m_ClipContent, weaponsObj.clipSize);        
             m_Owner.ChangeAmmo(weaponsObj.ammoType, -chargeInClip);       
             WeaponInfoUI.Instance.UpdateClipInfo(this);
         }
@@ -157,8 +160,8 @@ public class Weapon : MonoBehaviour
         
         m_ShotTimer = weaponsObj.fireRate;
 
-        if(weaponsObj.ammoDisplay)
-            weaponsObj.ammoDisplay.UpdateAmount(m_ClipContent, weaponsObj.clipSize);
+        if(ammoDisplay)
+            ammoDisplay.UpdateAmount(m_ClipContent, weaponsObj.clipSize);
         
         WeaponInfoUI.Instance.UpdateClipInfo(this);
 
@@ -208,7 +211,7 @@ public class Weapon : MonoBehaviour
                 hitPosition = hit.point;
             
             //this is a target
-            if (hit.collider.gameObject.layer == 10)
+            if (hit.collider.gameObject.layer == 10 || hit.collider.gameObject.layer == 14)
             {
                 Target target = hit.collider.gameObject.GetComponent<Target>();
                 target.Got(weaponsObj.damage);
@@ -282,8 +285,8 @@ public class Weapon : MonoBehaviour
         
         m_ClipContent += chargeInClip;
         
-        if(weaponsObj.ammoDisplay)
-            weaponsObj.ammoDisplay.UpdateAmount(m_ClipContent, weaponsObj.clipSize);
+        if(ammoDisplay)
+            ammoDisplay.UpdateAmount(m_ClipContent, weaponsObj.clipSize);
         
         m_Animator.SetTrigger("reload");
         

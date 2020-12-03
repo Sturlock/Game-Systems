@@ -7,6 +7,12 @@ using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 #endif
 
+public enum GameDifficulty
+{
+    Easy,
+    Normal,
+    Hard
+}
 
 public class GameSystem : MonoBehaviour
 {
@@ -20,6 +26,12 @@ public class GameSystem : MonoBehaviour
     public AudioSource BGMPlayer;
     public AudioClip EndGameSound;
     
+    public GameDifficulty difficulty;
+
+    public GameParams EasyParams;
+    public GameParams NormalParams;
+    public GameParams HardParams;
+
     public float RunTime => m_Timer;
     public int TargetCount => m_TargetCount;
     public int DestroyedTarget => m_TargetDestroyed;
@@ -35,6 +47,7 @@ public class GameSystem : MonoBehaviour
 
     void Awake()
     {
+        difficulty = GameStartUp.userDif;
         Instance = this;
         foreach (var prefab in StartPrefabs)
         {
@@ -42,6 +55,8 @@ public class GameSystem : MonoBehaviour
         }
         
         PoolSystem.Create();
+
+        //m_Timer = GetCurrentParams().gameTimer;
     }
 
     void Start()
@@ -160,7 +175,7 @@ public class GameSystem : MonoBehaviour
 #endif
             
             //we only count target with positive point, as negative point you have to avoid destroying them
-            if (t.pointValue > 0)
+            if (t.SriptableTarget.pointValue > 0)
                 count += 1;
         }
 
@@ -208,5 +223,19 @@ public class GameSystem : MonoBehaviour
         m_Score += score;
 
         GameSystemInfo.Instance.UpdateScore(m_Score);
+    }
+
+    public GameParams GetCurrentParams()
+    {
+        switch (difficulty)
+        {
+            case GameDifficulty.Easy:
+                return EasyParams;
+            case GameDifficulty.Normal:
+                return NormalParams;
+            case GameDifficulty.Hard:
+                return HardParams;
+        }
+        return null;
     }
 }

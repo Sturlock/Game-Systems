@@ -6,22 +6,16 @@ public class Projectile : MonoBehaviour
 {    
     static Collider[] s_SphereCastPool = new Collider[32];
     
-    public bool DestroyedOnHit = true;
-    public float TimeToDestroyed = 4.0f;
-    public float ReachRadius = 5.0f;
-    public float damage = 10.0f;
-    public AudioClip DestroyedSound;
-    
     //TODO : maybe pool that somewhere to not have to create one for each projectile.
-    public GameObject PrefabOnDestruction;
-
+    
+    public Pill_sObj pillSriptable;
     Weapon m_Owner;
     Rigidbody m_Rigidbody;
     float m_TimeSinceLaunch;
-    
+
     void Awake()
     {
-        PoolSystem.Instance.InitPool(PrefabOnDestruction, 4);
+        PoolSystem.Instance.InitPool(pillSriptable.PrefabOnDestruction, 4);
         m_Rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -39,7 +33,7 @@ public class Projectile : MonoBehaviour
     
     void OnCollisionEnter(Collision other)
     {
-        if (DestroyedOnHit)
+        if (pillSriptable.DestroyedOnHit)
         {
             Destroy();
         }
@@ -49,17 +43,17 @@ public class Projectile : MonoBehaviour
     {
         Vector3 position = transform.position;
         
-        var effect = PoolSystem.Instance.GetInstance<GameObject>(PrefabOnDestruction);
+        var effect = PoolSystem.Instance.GetInstance<GameObject>(pillSriptable.PrefabOnDestruction);
         effect.transform.position = position;
         effect.SetActive(true);
 
-        int count = Physics.OverlapSphereNonAlloc(position, ReachRadius, s_SphereCastPool, 1<<10);
+        int count = Physics.OverlapSphereNonAlloc(position, pillSriptable.ReachRadius, s_SphereCastPool, 1<<10);
 
         for (int i = 0; i < count; ++i)
         {
             Target t = s_SphereCastPool[i].GetComponent<Target>();
             
-            t.Got(damage);
+            t.Got(pillSriptable.damage);
         }
         
         gameObject.SetActive(false);
@@ -71,14 +65,14 @@ public class Projectile : MonoBehaviour
 
         source.transform.position = position;
         source.pitch = Random.Range(0.8f, 1.1f);
-        source.PlayOneShot(DestroyedSound);
+        source.PlayOneShot(pillSriptable.DestroyedSound);
     }
 
     void Update()
     {
         m_TimeSinceLaunch += Time.deltaTime;
 
-        if (m_TimeSinceLaunch >= TimeToDestroyed)
+        if (m_TimeSinceLaunch >= pillSriptable.TimeToDestroyed)
         {
             Destroy();
         }
@@ -86,6 +80,6 @@ public class Projectile : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position, ReachRadius);
+        Gizmos.DrawWireSphere(transform.position, pillSriptable.ReachRadius);
     }
 }

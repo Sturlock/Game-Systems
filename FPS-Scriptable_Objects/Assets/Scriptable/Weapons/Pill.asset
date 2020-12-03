@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ea357f98def5a544bbed0e472a1e229, type: 3}
-  m_Name: GermOBlaster
+  m_Name: Pill
   m_EditorClassIdentifier: 
   triggerType: 1
-  weaponType: 0
+  weaponType: 1
   fireRate: 0.5
   reloadTime: 2
-  clipSize: 4
+  clipSize: 1
   damage: 1
-  ammoType: 0
-  projectilePrefab: {fileID: 0}
-  projectileLaunchForce: 200
+  ammoType: 2
+  projectilePrefab: {fileID: 672515860094952321, guid: 4cfffa2f875e16444a1aa80acb915297,
+    type: 3}
+  projectileLaunchForce: 800
   advancedSettings:
     spreadAngle: 0
     projectilePerShot: 1
     screenShakeMultiplier: 1
-  FireAnimationClip: {fileID: 0}
-  ReloadAnimationClip: {fileID: 0}
-  FireAudioClip: {fileID: 0}
+  FireAnimationClip: {fileID: 7400000, guid: 9c5a36cef55a3614a866b354444f08a5, type: 3}
+  ReloadAnimationClip: {fileID: 7400000, guid: a6c840a53e370b24283ca137fe609958, type: 2}
+  FireAudioClip: {fileID: 8300000, guid: 9839eb252399f0e48ad440d498d738d1, type: 3}
   ReloadAudioClip: {fileID: 0}
   PrefabRayTrail: {fileID: 0}
-  ammoDisplay: {fileID: 0}

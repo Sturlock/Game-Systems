@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ea357f98def5a544bbed0e472a1e229, type: 3}
-  m_Name: Pill
+  m_Script: {fileID: 11500000, guid: 3341f488fa7604a42b5b69151025f5f0, type: 3}
+  m_Name: NormalEnemy
   m_EditorClassIdentifier: 
-  triggerType: 1
-  weaponType: 0
-  fireRate: 0.5
-  reloadTime: 2
-  clipSize: 4
-  damage: 1
+  health: 10
+  greenHealth: 10
+  pointValue: 20
+  greenPointValue: -10

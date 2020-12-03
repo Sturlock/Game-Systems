@@ -57,3 +57,54 @@ public class ScriptableObjectWeapon
 
 
 }
+
+public class ScriptableObjectTarget
+{
+    [MenuItem("Assets/Create/FPS_Scriptable/Target")]
+    public static void CreateObjectAsset()
+    {
+
+        Target_sObj asset = ScriptableObject.CreateInstance<Target_sObj>();
+
+        AssetDatabase.CreateAsset(asset, "Assets/NewScriptableTarget.asset");
+        AssetDatabase.SaveAssets();
+
+        EditorUtility.FocusProjectWindow();
+
+        Selection.activeObject = asset;
+    }
+}
+
+public class ScriptableObjectGameParams
+{
+    [MenuItem("Assets/Create/FPS_Scriptable/GameParams")]
+    public static void CreateObjectAsset()
+    {
+
+        GameParams asset = ScriptableObject.CreateInstance<GameParams>();
+
+        AssetDatabase.CreateAsset(asset, "Assets/NewScriptableGameParams.asset");
+        AssetDatabase.SaveAssets();
+
+        EditorUtility.FocusProjectWindow();
+
+        Selection.activeObject = asset;
+    }
+}
+
+public class ScriptableObjectProjectile
+{
+    [MenuItem("Assets/Create/FPS_Scriptable/Projectile")]
+    public static void CreateObjectAsset()
+    {
+
+        Pill_sObj asset = ScriptableObject.CreateInstance<Pill_sObj>();
+
+        AssetDatabase.CreateAsset(asset, "Assets/" + "NewScriptableProjectile.asset");
+        AssetDatabase.SaveAssets();
+
+        EditorUtility.FocusProjectWindow();
+
+        Selection.activeObject = asset;
+    }
+}
