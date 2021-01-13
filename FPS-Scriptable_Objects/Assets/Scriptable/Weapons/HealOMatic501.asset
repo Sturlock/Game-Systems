@@ -18,7 +18,7 @@ MonoBehaviour:
   reloadTime: 2
   clipSize: 10
   damage: 1
-  ammoType: 0
+  ammoType: 4
   projectilePrefab: {fileID: 5316880180710188183, guid: 469c73ea8ae587f4f86ee972959b9ec5,
     type: 3}
   projectileLaunchForce: 500

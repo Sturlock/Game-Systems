@@ -15,10 +15,10 @@ MonoBehaviour:
   triggerType: 1
   weaponType: 0
   fireRate: 1
-  reloadTime: 4
+  reloadTime: 3
   clipSize: 8
   damage: 1
-  ammoType: 0
+  ammoType: 5
   projectilePrefab: {fileID: 0}
   projectileLaunchForce: 200
   advancedSettings:

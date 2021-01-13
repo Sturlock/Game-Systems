@@ -1,44 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponSwitcher : MonoBehaviour
 {
-    public Controller Player;
-    [Header("Weapons")]
-    public Weapon Healmatic500;
-    public Weapon GermOBlaster;
-    public Weapon MedSpeader;
-    public Weapon Healmatic501;
-    public Weapon Pill;
-    public void Update()
+    public GameObject startCanvas;
+
+    public PlayerWeapon_sObj loadout1;
+    public PlayerWeapon_sObj loadout2;
+    public PlayerWeapon_sObj loadout3;
+
+
+    public void ChooseLoadout1()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            return;
-        }
+        GameLoadouts.loadout = loadout1;
     }
 
-    public void ObtainHealmatic500()
+    public void ChooseLoadout2()
     {
-        return;
-    }
-    public void ObtainGermOBlaster()
-    {
-        return;
-    }
-    public void ObtainMedSpeader()
-    {
-        return;
-    }
-    public void ObtainHealmatic501()
-    {
-        return;
-    }
-    public void ObtainPill()
-    {
-        return;
+        GameLoadouts.loadout = loadout2;
     }
 
+    public void ChooseLoadout3()
+    {
+        GameLoadouts.loadout = loadout3;
+    }
+    public void NextMenu(GameObject nxtCanvas)
+
+    {
+        nxtCanvas.SetActive(true);
+        startCanvas.SetActive(false);
+    }
 }
