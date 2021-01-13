@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: PlayerWeaponScriptable
   m_EditorClassIdentifier: 
   startingWeapons:
-  - {fileID: 8587774576786866763, guid: 760a5cd9833938442ba8a4b54bfa8148, type: 3}
   - {fileID: 521019951643201760, guid: a7112150bc902aa40a065439ad698c01, type: 3}
+  - {fileID: 8587774576786866763, guid: 760a5cd9833938442ba8a4b54bfa8148, type: 3}
   - {fileID: 6274258826675327207, guid: 4f2e46d4d4842c849a745f6e82991e57, type: 3}
   startingAmmo:
   - ammoType: 0
-    amount: 60
+    amount: 240
   - ammoType: 2
     amount: 2
   - ammoType: 2

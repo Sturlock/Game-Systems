@@ -189,7 +189,7 @@ public class Weapon : MonoBehaviour
     }
 
 
-    void RaycastShot()
+    public void RaycastShot()
     {
 
         //compute the ratio of our spread angle over the fov to know in viewport space what is the possible offset from center

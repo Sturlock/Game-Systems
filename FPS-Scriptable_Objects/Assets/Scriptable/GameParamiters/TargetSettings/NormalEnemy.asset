@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: NormalEnemy
   m_EditorClassIdentifier: 
   health: 10
-  greenHealth: 10
   pointValue: 20
-  greenPointValue: -10
+  redHealth: 2.5
+  redPointValue: 20
