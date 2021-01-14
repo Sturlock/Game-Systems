@@ -57,6 +57,7 @@ public class EnemyAI : MonoBehaviour
         {
             isProvoked = true;
         }
+        else { return; }
         
         Vector3[] pos = new Vector3[2];
         for (int i = 0; i < m_ActiveTrails.Count; ++i)

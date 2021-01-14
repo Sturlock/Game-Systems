@@ -1,0 +1,1 @@
+{"weaponOneJson":"","weaponTwoJson":"","weaponThreeJson":"","genericTargetDataJson":"","loadoutOneJson":"{\"startingWeapons\":[{\"instanceID\":28960},{\"instanceID\":28962},{\"instanceID\":18566}],\"startingAmmo\":[{\"ammoType\":0,\"amount\":240},{\"ammoType\":2,\"amount\":2},{\"ammoType\":2,\"amount\":2}]}","currentLoadoutJson":"{\"loadout\":{\"instanceID\":12362}}"}

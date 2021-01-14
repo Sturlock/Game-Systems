@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEditor;
 #endif
 
+
 public class Weapon : MonoBehaviour
 {
     public enum WeaponState

@@ -27,7 +27,7 @@ public class ScriptableObjectPlayerWeapon
     public static void CreateObjectAsset()
     {
 
-        PlayerWeapon_sObj asset = ScriptableObject.CreateInstance<PlayerWeapon_sObj>();
+        PlayerLoadout_sObj asset = ScriptableObject.CreateInstance<PlayerLoadout_sObj>();
 
         AssetDatabase.CreateAsset(asset, "Assets/NewScriptablePlayerWeapon.asset");
         AssetDatabase.SaveAssets();

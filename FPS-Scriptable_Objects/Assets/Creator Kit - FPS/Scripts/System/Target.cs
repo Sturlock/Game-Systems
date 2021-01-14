@@ -41,15 +41,15 @@ public class Target : MonoBehaviour
         GameParams currentParams = GameSystem.Instance.GetCurrentParams();
         if (currentParams != null)
         {
-            if (currentParams.EnemyParams != null && targetLayer == LayerMask.NameToLayer("Target"))
+            if (currentParams.enemyParams != null && targetLayer == LayerMask.NameToLayer("Target"))
             {
-                health = currentParams.EnemyParams.health;
-                pointValue = currentParams.EnemyParams.pointValue;
+                health = currentParams.enemyParams.health;
+                pointValue = currentParams.enemyParams.pointValue;
             }
-            if (currentParams.EnemyParams != null && targetLayer == LayerMask.NameToLayer("NonTarget"))
+            if (currentParams.enemyParams != null && targetLayer == LayerMask.NameToLayer("NonTarget"))
             {
-                health = currentParams.EnemyParams.redHealth;
-                pointValue = currentParams.EnemyParams.redPointValue;
+                health = currentParams.enemyParams.redHealth;
+                pointValue = currentParams.enemyParams.redPointValue;
             }
         }
         m_CurrentHealth = health;

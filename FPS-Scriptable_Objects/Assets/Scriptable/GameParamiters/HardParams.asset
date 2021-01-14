@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7792f8ea8df84d540bf402fecbea6d0c, type: 3}
   m_Name: HardParams
   m_EditorClassIdentifier: 
-  PlayerHealth: 10
+  playerHealth: 0
   gameTimer: 60
-  EnemyParams: {fileID: 11400000, guid: f509a2b96a6a5d945b6d5fd6193322ec, type: 2}
+  enemyParams: {fileID: 11400000, guid: ac2c15646b03a0849841e11f37110e10, type: 2}

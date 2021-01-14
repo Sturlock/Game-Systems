@@ -17,7 +17,7 @@ public class Controller : MonoBehaviour
     public Transform WeaponPosition;
     
     public Player_sObj PlayersObj;
-    public PlayerWeapon_sObj playerWeaponsObj;
+    public PlayerLoadout_sObj playerWeaponsObj;
 
     [Header("Audio")]
     public RandomPlayer FootstepPlayer;
@@ -45,7 +45,7 @@ public class Controller : MonoBehaviour
 
     void Awake()
     {
-        playerWeaponsObj = GameLoadouts.loadout;
+        playerWeaponsObj = GameLoadout.loadout;
         Instance = this;
     }
     
