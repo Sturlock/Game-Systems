@@ -20,7 +20,6 @@ public class ScriptableObjectPlayer
 
 
 }
-
 public class ScriptableObjectPlayerWeapon
 {
     [MenuItem("Assets/Create/FPS_Scriptable/PlayerWeapon")]
@@ -57,7 +56,6 @@ public class ScriptableObjectWeapon
 
 
 }
-
 public class ScriptableObjectTarget
 {
     [MenuItem("Assets/Create/FPS_Scriptable/Target")]
@@ -74,7 +72,6 @@ public class ScriptableObjectTarget
         Selection.activeObject = asset;
     }
 }
-
 public class ScriptableObjectGameParams
 {
     [MenuItem("Assets/Create/FPS_Scriptable/GameParams")]
@@ -91,7 +88,6 @@ public class ScriptableObjectGameParams
         Selection.activeObject = asset;
     }
 }
-
 public class ScriptableObjectProjectile
 {
     [MenuItem("Assets/Create/FPS_Scriptable/Projectile")]

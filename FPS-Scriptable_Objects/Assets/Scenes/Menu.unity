@@ -523,7 +523,6 @@ GameObject:
   - component: {fileID: 97386937}
   - component: {fileID: 97386940}
   - component: {fileID: 97386941}
-  - component: {fileID: 97386942}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -608,25 +607,6 @@ MonoBehaviour:
   loadout1: {fileID: 11400000, guid: 966410ca310a874428ac5c5387d2fe2a, type: 2}
   loadout2: {fileID: 11400000, guid: 3f0acb203740e5e48bf51e5bc58a0560, type: 2}
   loadout3: {fileID: 11400000, guid: 898b10cec9a48674db3d82e521d2a704, type: 2}
---- !u!114 &97386942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 97386936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 349909df2973e4741ac23faedbd06eb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loadoutOne: {fileID: 0}
-  genericTarget: {fileID: 0}
-  currentLoadout: {fileID: 0}
-  fileName: scriptableObjectJson
-  fileExtension: txt
-  saveToText: 0
-  readFromText: 0
 --- !u!1 &191539802
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class sObj_JsonManager : MonoBehaviour
 {
-    //public Weapon_sObj weaponOne;
-    //public Weapon_sObj weaponTwo;
-    //public Weapon_sObj weaponThree;
+    public Weapon_sObj weaponOne;
+    public Weapon_sObj weaponTwo;
+    public Weapon_sObj weaponThree;
+    public Weapon_sObj weaponFour;
+    public Weapon_sObj weaponFive;
     public PlayerLoadout_sObj loadout;
-    //GameDifficulty difficulty;
+    public GameParams currentParams;
     
     
     //public GameLoadout currentLoadout;
@@ -37,6 +39,7 @@ public class sObj_JsonManager : MonoBehaviour
     private void Awake()
     {
         loadout = GameLoadout.loadout;
+        
         //difficulty = GameStartUp.userDif;
         ReadObjectsFromFile();
     }
@@ -58,12 +61,16 @@ public class sObj_JsonManager : MonoBehaviour
         //difficulty.FromJson(difficultyData);
         
         
-        //WeaponDataJson weaponOneData = JsonUtility.FromJson<WeaponDataJson>(jsonObject.weaponOneJson);
-        //weaponOne.FromJson(weaponOneData);
-        //WeaponDataJson weaponTwoData = JsonUtility.FromJson<WeaponDataJson>(jsonObject.weaponTwoJson);
-        //weaponTwo.FromJson(weaponTwoData);
-        //WeaponDataJson weaponThreeData = JsonUtility.FromJson<WeaponDataJson>(jsonObject.weaponThreeJson);
-        //weaponThree.FromJson(weaponThreeData);
+        WeaponDataJson weaponOneData = JsonUtility.FromJson<WeaponDataJson>(jsonObject.weaponOneJson);
+        weaponOne.FromJson(weaponOneData);
+        WeaponDataJson weaponTwoData = JsonUtility.FromJson<WeaponDataJson>(jsonObject.weaponTwoJson);
+        weaponTwo.FromJson(weaponTwoData);
+        WeaponDataJson weaponThreeData = JsonUtility.FromJson<WeaponDataJson>(jsonObject.weaponThreeJson);
+        weaponThree.FromJson(weaponThreeData);
+        WeaponDataJson weaponFourData = JsonUtility.FromJson<WeaponDataJson>(jsonObject.weaponFourJson);
+        weaponFour.FromJson(weaponThreeData);
+        WeaponDataJson weaponFiveData = JsonUtility.FromJson<WeaponDataJson>(jsonObject.weaponFiveJson);
+        weaponFive.FromJson(weaponThreeData);
 
         //TargetJsonData genericTargetData = JsonUtility.FromJson<TargetJsonData>(jsonObject.genericTargetDataJson);
         //genericTarget.FromJson(genericTargetData);
@@ -73,9 +80,11 @@ public class sObj_JsonManager : MonoBehaviour
         ScriptableObjectJson jsonObject = new ScriptableObjectJson();
 
         jsonObject.loadoutJson = JsonUtility.ToJson(loadout.ToJson());
-        //jsonObject.weaponOneJson = JsonUtility.ToJson(weaponOne.ToJson());
-        //jsonObject.weaponTwoJson = JsonUtility.ToJson(weaponTwo.ToJson());
-        //jsonObject.weaponThreeJson = JsonUtility.ToJson(weaponThree.ToJson());
+        jsonObject.weaponOneJson = JsonUtility.ToJson(weaponOne.ToJson());
+        jsonObject.weaponTwoJson = JsonUtility.ToJson(weaponTwo.ToJson());
+        jsonObject.weaponThreeJson = JsonUtility.ToJson(weaponThree.ToJson());
+        jsonObject.weaponFourJson = JsonUtility.ToJson(weaponFour.ToJson());
+        jsonObject.weaponFiveJson = JsonUtility.ToJson(weaponFive.ToJson());
 
         //jsonObject.genericTargetDataJson = JsonUtility.ToJson(genericTarget.ToJson());
         //jsonObject.difficultyJson = JsonUtility.ToJson(difficulty.ToJson());
@@ -94,6 +103,11 @@ public class sObj_JsonManager : MonoBehaviour
 public class ScriptableObjectJson
 {
     //strings are JSON interpretation of our Scriptable Objects paired serializeable class
+    public string weaponOneJson;
+    public string weaponTwoJson;
+    public string weaponThreeJson;
+    public string weaponFourJson;
+    public string weaponFiveJson;
     public string loadoutJson;
     public string difficultyJson;
 }

@@ -30,7 +30,7 @@ public class EnemyAI : MonoBehaviour
     private List<ActiveTrail> m_ActiveTrails = new List<ActiveTrail>();
     public Transform endPoint;
 
-    private void OnDrawGizmosSelected ()
+    private void OnDrawGizmosSelected()
     {
         //Display the Chase Radius of the enemy
         Gizmos.color = Color.red;
@@ -47,7 +47,6 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        
         distanceToTarget = Vector3.Distance(target.position, transform.position);
         if (isProvoked)
         {
@@ -58,7 +57,7 @@ public class EnemyAI : MonoBehaviour
             isProvoked = true;
         }
         else { return; }
-        
+
         Vector3[] pos = new Vector3[2];
         for (int i = 0; i < m_ActiveTrails.Count; ++i)
         {
@@ -119,7 +118,7 @@ public class EnemyAI : MonoBehaviour
         return position;
     }
 
-    void Shoot()
+    private void Shoot()
     {
         if (timer < achivTime) return;
         timer = 0f;

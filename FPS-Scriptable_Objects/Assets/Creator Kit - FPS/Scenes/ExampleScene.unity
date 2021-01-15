@@ -3783,6 +3783,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1782824342990945115, guid: 6ca000ead671ebe449deb210e0a19be8,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 19767
+      objectReference: {fileID: 0}
     - target: {fileID: 1782824343737523953, guid: 6ca000ead671ebe449deb210e0a19be8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3844,11 +3849,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 966410ca310a874428ac5c5387d2fe2a,
         type: 2}
-    - target: {fileID: 1782824342990945115, guid: 6ca000ead671ebe449deb210e0a19be8,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 19767
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ca000ead671ebe449deb210e0a19be8, type: 3}
 --- !u!1001 &760221305
@@ -8610,8 +8610,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349909df2973e4741ac23faedbd06eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadoutOne: {fileID: 11400000, guid: 966410ca310a874428ac5c5387d2fe2a, type: 2}
-  currentLoadout: {fileID: 0}
+  weaponOne: {fileID: 11400000, guid: 56a2b9d2a448e254f80edc4d066d64e9, type: 2}
+  weaponTwo: {fileID: 11400000, guid: b711d55be4632554dace180fe68ba5fe, type: 2}
+  weaponThree: {fileID: 11400000, guid: 006acb81fc8811e488acb9ddbad8c9ed, type: 2}
+  weaponFour: {fileID: 11400000, guid: cf2301eb4e897d94ab161f89bc892d7a, type: 2}
+  weaponFive: {fileID: 11400000, guid: 700fd30968264d04abdfe983bfb5ee01, type: 2}
+  loadout: {fileID: 11400000, guid: 898b10cec9a48674db3d82e521d2a704, type: 2}
+  currentParams: {fileID: 0}
   fileName: scriptableObjectJson
   fileExtension: txt
   saveToText: 0
