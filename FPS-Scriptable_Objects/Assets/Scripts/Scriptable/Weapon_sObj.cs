@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using LightJson;
 public enum TriggerType
 {
     Auto,
@@ -50,57 +51,45 @@ public class Weapon_sObj : ScriptableObject
     [Header("Visual Settings")]
     public LineRenderer PrefabRayTrail;
 
-    public void FromJson(WeaponDataJson inJson)
+    public void FromJson(JsonObject inJson)
     {
         if (inJson != null)
         {
-            triggerType = inJson.triggerType;
-            weaponType = inJson.weaponType;
-            fireRate = inJson.fireRate;
-            reloadTime = inJson.reloadTime;
-            clipSize = inJson.clipSize;
-            damage = inJson.damage;
-            ammoType = inJson.ammoType;
-            projectileLaunchForce = inJson.projectileLaunchForce;
-            advancedSettings.projectilePerShot = inJson.advancedSettings.projectilePerShot;
-            advancedSettings.screenShakeMultiplier = inJson.advancedSettings.screenShakeMultiplier;
-            advancedSettings.spreadAngle = inJson.advancedSettings.spreadAngle;
+            triggerType = (TriggerType)inJson["trugger_type"].AsInteger;
+            weaponType = (WeaponType)inJson["weapon_type"].AsInteger;
+            fireRate = inJson["fire_rate"];
+            reloadTime = inJson["reloa_time"];
+            clipSize = inJson["clip_size"];
+            damage = inJson["damage"];
+            ammoType = inJson["ammoType"];
+            projectileLaunchForce = inJson["projectile_force"];
+
+            JsonObject advancedSettingJson = inJson["advanced_setting"];
+            advancedSettings.projectilePerShot = advancedSettingJson["projectile_per_shot"];
+            advancedSettings.screenShakeMultiplier = advancedSettingJson["screen_shake"];
+            advancedSettings.spreadAngle = advancedSettingJson["spread_angle"];
         }
     }
-
-    public WeaponDataJson ToJson()
+    public JsonObject ToJson()
     {
-        WeaponDataJson jsonData = new WeaponDataJson();
-        jsonData.triggerType = triggerType;
-        jsonData.weaponType = weaponType;
-        jsonData.fireRate = fireRate;
-        jsonData.reloadTime = reloadTime;
-        jsonData.clipSize = clipSize;
-        jsonData.damage = damage;
-        jsonData.ammoType = ammoType;
-        jsonData.projectileLaunchForce = projectileLaunchForce;
-        jsonData.advancedSettings.projectilePerShot = advancedSettings.projectilePerShot;
-        jsonData.advancedSettings.screenShakeMultiplier = advancedSettings.screenShakeMultiplier;
-        jsonData.advancedSettings.spreadAngle = advancedSettings.spreadAngle;
+        JsonObject jsonData = new JsonObject();
+        jsonData.Add("trigger_type", (int)triggerType);
+        jsonData.Add("weapon_type", (int)weaponType);
+        jsonData.Add("fire_rate", fireRate);
+        jsonData.Add("reload_time", reloadTime);
+        jsonData.Add("clip_size", clipSize);
+        jsonData.Add("damage", damage);
+        jsonData.Add("ammo_type", ammoType);
+        jsonData.Add("projectile_force", projectileLaunchForce);
 
+        JsonObject advancedSettingsJson = new JsonObject();
+        advancedSettingsJson.Add("projectile_per_shot", advancedSettings.projectilePerShot);
+        advancedSettingsJson.Add("screen_shake", advancedSettings.screenShakeMultiplier);
+        advancedSettingsJson.Add("spread_angle", advancedSettings.spreadAngle);
+
+        jsonData.Add("advanced_settings", advancedSettingsJson);
         return jsonData;
     }
-}
-
-[System.Serializable]
-public class WeaponDataJson
-{
-    public TriggerType triggerType = TriggerType.Manual;
-    public WeaponType weaponType = WeaponType.Raycast;
-    public float fireRate = 0.5f;
-    public float reloadTime = 2.0f;
-    public int clipSize = 4;
-    public float damage = 1.0f;
-
-    public int ammoType = -1;
-    public float projectileLaunchForce = 200.0f;
-
-    public AdvancedSettings advancedSettings = new AdvancedSettings();
 }
 
 #if UNITY_EDITOR

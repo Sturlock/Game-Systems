@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using LightJson;
 
 public class Target_sObj : ScriptableObject
 {
@@ -7,31 +8,22 @@ public class Target_sObj : ScriptableObject
     public float redHealth = 2.5f;
     public int redPointValue;
 
-    public void FromJson(TargetJsonData inJson)
+    public void FromJson(JsonObject inJson)
     {
-        health = inJson.health;
-        pointValue = inJson.pointValue;
-        redHealth = inJson.redHealth;
-        redPointValue = inJson.redPointValue;
+        health = inJson["health"];
+        pointValue = inJson["point_value"];
+        redHealth = inJson["red_health"];
+        redPointValue = inJson["red_point_value"];
     }
 
-    public TargetJsonData ToJson()
+    public JsonObject ToJson()
     {
-        TargetJsonData jsonData = new TargetJsonData();
-        jsonData.health = health;
-        jsonData.pointValue = pointValue;
-        jsonData.redHealth = redHealth;
-        jsonData.redPointValue = redPointValue;
+        JsonObject jsonData = new JsonObject();
+        jsonData.Add("health", health);
+        jsonData.Add("point_value", pointValue);
+        jsonData.Add("red_health", redHealth);
+        jsonData.Add("red_point_value", redPointValue);
         return jsonData;
 
     }
-}
-
-[System.Serializable]
-public class TargetJsonData
-{
-    public float health = 5.0f;
-    public int pointValue;
-    public float redHealth = 2.5f;
-    public int redPointValue;
 }

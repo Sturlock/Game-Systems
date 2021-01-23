@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using LightJson;
 
 [System.Serializable]
 public class AmmoInventoryEntry
@@ -16,19 +17,24 @@ public class PlayerLoadout_sObj : ScriptableObject
     public Weapon[] startingWeapons;
     public AmmoInventoryEntry[] startingAmmo;
 
-    public void FromJson(PlayerLoadoutJsonData inJson)
+    public void FromJson(JsonObject inJson)
     {
         if( inJson != null)
         {
-            startingWeapons = inJson.startingWeapons;
-            startingAmmo = inJson.startingAmmo;
+            JsonArray waeponsArray = inJson["weapon_ids"];
+
         }
     }
-    public PlayerLoadoutJsonData ToJson()
+    public JsonObject ToJson()
     {
-        PlayerLoadoutJsonData jsonData = new PlayerLoadoutJsonData();
-        jsonData.startingWeapons = startingWeapons;
-        jsonData.startingAmmo = startingAmmo;
+        JsonObject jsonData = new JsonObject();
+        JsonArray weaponArray = new JsonArray();
+
+        for(int i =0; i< startingWeapons.Length; i++)
+        {
+            weaponArray.Add(startingWeapons[i].GetInstanceID());
+        }
+        jsonData.Add("weapon_id", weaponArray);
         return jsonData;
     }
 }
