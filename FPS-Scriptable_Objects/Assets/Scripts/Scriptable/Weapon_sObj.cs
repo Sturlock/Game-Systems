@@ -55,19 +55,20 @@ public class Weapon_sObj : ScriptableObject
     {
         if (inJson != null)
         {
-            triggerType = (TriggerType)inJson["trugger_type"].AsInteger;
+            triggerType = (TriggerType)inJson["trigger_type"].AsInteger;
             weaponType = (WeaponType)inJson["weapon_type"].AsInteger;
-            fireRate = inJson["fire_rate"];
-            reloadTime = inJson["reloa_time"];
+            fireRate = (float)(double)inJson["fire_rate"];
+            reloadTime = (float)(double)inJson["reload_time"];
             clipSize = inJson["clip_size"];
-            damage = inJson["damage"];
+            damage = (float)(double)inJson["damage"];
             ammoType = inJson["ammoType"];
-            projectileLaunchForce = inJson["projectile_force"];
+            projectileLaunchForce = (float)(double)inJson["projectile_force"];
 
-            JsonObject advancedSettingJson = inJson["advanced_setting"];
+            
+            JsonObject advancedSettingJson = inJson["advanced_settings"];
             advancedSettings.projectilePerShot = advancedSettingJson["projectile_per_shot"];
-            advancedSettings.screenShakeMultiplier = advancedSettingJson["screen_shake"];
-            advancedSettings.spreadAngle = advancedSettingJson["spread_angle"];
+            advancedSettings.screenShakeMultiplier = (float)(double)advancedSettingJson["screen_shake"];
+            advancedSettings.spreadAngle = (float)(double)advancedSettingJson["spread_angle"];
         }
     }
     public JsonObject ToJson()

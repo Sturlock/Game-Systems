@@ -18,11 +18,11 @@ MonoBehaviour:
   reloadTime: 3
   clipSize: 8
   damage: 2
-  ammoType: 5
+  ammoType: 0
   projectilePrefab: {fileID: 0}
   projectileLaunchForce: 200
   advancedSettings:
-    spreadAngle: 4
+    spreadAngle: 10
     projectilePerShot: 12
     screenShakeMultiplier: 2
   FireAnimationClip: {fileID: 7400006, guid: 36622a955330bc346a249a1e63e61d2a, type: 3}

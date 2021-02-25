@@ -124,7 +124,7 @@ public class Controller : MonoBehaviour
             // Jump (we do it first as 
             if (m_Grounded && Input.GetButtonDown("Jump"))
             {
-                m_VerticalSpeed = PlayersObj.jumpSpeed;
+                m_VerticalSpeed = PlayersObj.jumpHeight;
                 m_Grounded = false;
                 loosedGrounding = true;
                 FootstepPlayer.PlayClip(PlayersObj.jumpingAudioCLip, 0.8f,1.1f);

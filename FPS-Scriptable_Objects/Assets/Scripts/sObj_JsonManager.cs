@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class sObj_JsonManager : MonoBehaviour
 {
-    public Weapon_sObj weaponOne;
-    public Weapon_sObj weaponTwo;
-    public Weapon_sObj weaponThree;
-    public Weapon_sObj weaponFour;
-    public Weapon_sObj weaponFive;
-    public PlayerLoadout_sObj loadout;
-    public GameParams currentParams;
+    public GoogleSheetsManager sheetManager = null;
+    [Header("Weapons", order = 1)]
+    public Weapon_sObj GermOBlaster;
+    public Weapon_sObj HealMatic500;
+    public Weapon_sObj HealOMatic501;
+    public Weapon_sObj MedSpreader;
+    public Weapon_sObj Pill;
+
+    //public GameParams currentParams;
 
     //public GameLoadout currentLoadout;
     // isn't a Scripatable Object but was wondering if I could
@@ -31,58 +33,64 @@ public class sObj_JsonManager : MonoBehaviour
         if (readFromText == true)
         {
             readFromText = false;
-            ReadObjectsFromFile();
+            //ReadObjectsFromFile();
         }
     }
 
     private void Awake()
     {
-        loadout = GameLoadout.loadout;
-
         //difficulty = GameStartUp.userDif;
-        ReadObjectsFromFile();
+        //ReadObjectsFromFile();
+        DontDestroyOnLoad(gameObject);
     }
 
-    private void ReadObjectsFromFile()
+    void Start()
     {
-        ScriptableObjectJson jsonObject = null;
-        string jsonString = "";
-
-        StreamReader reader = new StreamReader(Application.dataPath + "/" + fileName + "." + fileExtension);
-        jsonString = reader.ReadToEnd();
-        reader.Close();
-
-        jsonObject = JsonUtility.FromJson<ScriptableObjectJson>(jsonString);
-
-        //PlayerLoadoutJsonData loadoutData = JsonUtility.FromJson<PlayerLoadoutJsonData>(jsonObject.loadoutJson);
-        //loadout.FromJson(loadoutData);
-
-        //GameParamsJsonData difficultyData = JsonUtility.FromJson<GameParamsJsonData>(jsonObject.difficultyJson);
-        //difficulty.FromJson(difficultyData);
-
-        JsonObject objectFromFile = JsonValue.Parse(jsonString);
-        if (objectFromFile != null)
-        {
-            weaponOne.FromJson(objectFromFile["weapon_one"]);
-            weaponTwo.FromJson(objectFromFile["weapon_two"]);
-            weaponThree.FromJson(objectFromFile["weapon_three"]);
-            weaponFour.FromJson(objectFromFile["weapon_four"]);
-            weaponFive.FromJson(objectFromFile["weapon_five"]);
-        }
-
-        //TargetJsonData genericTargetData = JsonUtility.FromJson<TargetJsonData>(jsonObject.genericTargetDataJson);
-        //genericTarget.FromJson(genericTargetData);
+        sheetManager.GetSheets(OnGetSheets);
     }
+
+    //private void ReadObjectsFromFile()
+    //{
+    //    ScriptableObjectJson jsonObject = null;
+    //    string jsonString = "";
+
+    //    StreamReader reader = new StreamReader(Application.dataPath + "/" + fileName + "." + fileExtension);
+    //    jsonString = reader.ReadToEnd();
+    //    reader.Close();
+
+    //    jsonObject = JsonUtility.FromJson<ScriptableObjectJson>(jsonString);
+
+    //    //PlayerLoadoutJsonData loadoutData = JsonUtility.FromJson<PlayerLoadoutJsonData>(jsonObject.loadoutJson);
+    //    //loadout.FromJson(loadoutData);
+
+    //    //GameParamsJsonData difficultyData = JsonUtility.FromJson<GameParamsJsonData>(jsonObject.difficultyJson);
+    //    //difficulty.FromJson(difficultyData);
+
+    //    JsonObject objectFromFile = JsonValue.Parse(jsonString);
+    //    if (objectFromFile != null)
+    //    {
+    //        GermOBlaster.FromJson(objectFromFile["GermOBlaster"]);
+    //        HealMatic500.FromJson(objectFromFile["HealMatic500"]);
+    //        HealOMatic501.FromJson(objectFromFile["HealOMatic501"]);
+    //        MedSpreader.FromJson(objectFromFile["MedSpreader"]);
+    //        Pill.FromJson(objectFromFile["Pill"]);
+
+    //    }
+
+    //    //TargetJsonData genericTargetData = JsonUtility.FromJson<TargetJsonData>(jsonObject.genericTargetDataJson);
+    //    //genericTarget.FromJson(genericTargetData);
+    //    Debug.Log("Read");
+    //}
 
     private void WriteObjectsToFile()
     {
         JsonObject jsonObject = new JsonObject();
 
-        jsonObject.Add("weapon_one", weaponOne.ToJson());
-        jsonObject.Add("weapon_two", weaponOne.ToJson());
-        jsonObject.Add("weapon_three", weaponOne.ToJson());
-        jsonObject.Add("weapon_four", weaponOne.ToJson());
-        jsonObject.Add("weapon_five", weaponOne.ToJson());
+        jsonObject.Add("GermOBlaster", GermOBlaster.ToJson());
+        jsonObject.Add("HealMatic500", HealMatic500.ToJson());
+        jsonObject.Add("HealOMatic501", HealOMatic501.ToJson());
+        jsonObject.Add("MedSpreader", MedSpreader.ToJson());
+        jsonObject.Add("Pill", Pill.ToJson());
 
         //jsonObject.genericTargetDataJson = JsonUtility.ToJson(genericTarget.ToJson());
         //jsonObject.difficultyJson = JsonUtility.ToJson(difficulty.ToJson());
@@ -90,19 +98,40 @@ public class sObj_JsonManager : MonoBehaviour
         StreamWriter writer = new StreamWriter(Application.dataPath + "/" + fileName + "." + fileExtension);
         writer.Write(jsonObject.ToString());
         writer.Close();
+        Debug.Log("Write");
     }
-}
 
-[System.Serializable]
-public class ScriptableObjectJson
-{
-    //strings are JSON interpretation of our Scriptable Objects paired serializeable class
-    public string weaponOneJson;
+    private void OnGetSheets(bool success, JsonObject sheets)
+    {
+        if (success)
+        {
+            Debug.Log("Something happens");
+            Debug.Log(sheets.ToString(true));
+            JsonObject weapons = sheets["Weapon"];
+            if (weapons != null)
+            {
+                GermOBlaster.FromJson(weapons["GermOBlaster"]);
+                HealMatic500.FromJson(weapons["HealMatic500"]);
+                HealOMatic501.FromJson(weapons["HealOMatic501"]);
+                MedSpreader.FromJson(weapons["MedSpreader"]);
+                Pill.FromJson(weapons["Pill"]);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("It Borked");
+        }
+    }
 
-    public string weaponTwoJson;
-    public string weaponThreeJson;
-    public string weaponFourJson;
-    public string weaponFiveJson;
-    public string loadoutJson;
-    public string difficultyJson;
+    [System.Serializable]
+    public class ScriptableObjectJson
+    {
+        //strings are JSON interpretation of our Scriptable Objects paired serializeable class
+        public string GermOBlasterJson;
+        public string HealMatic500Json;
+        public string HealOMatic501Json;
+        public string MedSpreaderJson;
+        public string PillJson;
+        public string difficultyJson;
+    }
 }

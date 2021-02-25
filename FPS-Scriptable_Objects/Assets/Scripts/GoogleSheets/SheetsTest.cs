@@ -2,7 +2,6 @@ using LightJson;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class SheetsTest : MonoBehaviour
 {
     public Weapon_sObj GermOBlaster;
@@ -17,7 +16,7 @@ public class SheetsTest : MonoBehaviour
     }
 
    private void OnGetSheets(bool success, JsonObject sheets)
-    {
+   {
         if (success)
         {
             Debug.Log("Something happens");
@@ -30,13 +29,12 @@ public class SheetsTest : MonoBehaviour
                 HealOMatic501.FromJson(weapons["Weapon"]);
                 MedSpreader.FromJson(weapons["Weapon"]);
                 Pill.FromJson(weapons["Weapon"]);
-                PillProjectile.FromJson(weapons["Weapon"]);
             }
         }
         else
         {
             Debug.LogWarning("It Borked");
         }
-}
+   }
 }
     

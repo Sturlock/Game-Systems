@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
 
     void Awake()
     {
-        PoolSystem.Instance.InitPool(pillSriptable.PrefabOnDestruction, 4);
+        PoolSystem.Instance.InitPool(pillSriptable.prefabOnDestruction, 4);
         m_Rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
     
     void OnCollisionEnter(Collision other)
     {
-        if (pillSriptable.DestroyedOnHit)
+        if (pillSriptable.destroyedOnHit)
         {
             Destroy();
         }
@@ -43,11 +43,11 @@ public class Projectile : MonoBehaviour
     {
         Vector3 position = transform.position;
         
-        var effect = PoolSystem.Instance.GetInstance<GameObject>(pillSriptable.PrefabOnDestruction);
+        var effect = PoolSystem.Instance.GetInstance<GameObject>(pillSriptable.prefabOnDestruction);
         effect.transform.position = position;
         effect.SetActive(true);
 
-        int count = Physics.OverlapSphereNonAlloc(position, pillSriptable.ReachRadius, s_SphereCastPool, 1<<10);
+        int count = Physics.OverlapSphereNonAlloc(position, pillSriptable.reachRadius, s_SphereCastPool, 1<<10);
 
         for (int i = 0; i < count; ++i)
         {
@@ -65,14 +65,14 @@ public class Projectile : MonoBehaviour
 
         source.transform.position = position;
         source.pitch = Random.Range(0.8f, 1.1f);
-        source.PlayOneShot(pillSriptable.DestroyedSound);
+        source.PlayOneShot(pillSriptable.destroyedSound);
     }
 
     void Update()
     {
         m_TimeSinceLaunch += Time.deltaTime;
 
-        if (m_TimeSinceLaunch >= pillSriptable.TimeToDestroyed)
+        if (m_TimeSinceLaunch >= pillSriptable.timeToDestroyed)
         {
             Destroy();
         }
@@ -80,6 +80,6 @@ public class Projectile : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position, pillSriptable.ReachRadius);
+        Gizmos.DrawWireSphere(transform.position, pillSriptable.reachRadius);
     }
 }

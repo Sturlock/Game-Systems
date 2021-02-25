@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df11802479d3bd4dbe4b225c16173df, type: 3}
   m_Name: Explosive Ammo
   m_EditorClassIdentifier: 
-  DestroyedOnHit: 1
-  TimeToDestroyed: 1
-  ReachRadius: 1
+  destroyedOnHit: 1
+  timeToDestroyed: 4
+  reachRadius: 5
   damage: 2
-  PrefabOnDestruction: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c,
+  prefabOnDestruction: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c,
     type: 3}
-  DestroyedSound: {fileID: 8300000, guid: 4a9a06c9694a13543bb6addd4101fcb1, type: 3}
+  destroyedSound: {fileID: 8300000, guid: 4a9a06c9694a13543bb6addd4101fcb1, type: 3}

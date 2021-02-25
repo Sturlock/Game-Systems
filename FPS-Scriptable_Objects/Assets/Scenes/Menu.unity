@@ -867,6 +867,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 225721984}
   m_CullTransparentMesh: 0
+--- !u!1 &229041901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 229041903}
+  - component: {fileID: 229041902}
+  m_Layer: 0
+  m_Name: String Builder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &229041902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229041901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 019dcd6b83dfde5489de17b7976030c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonPairs:
+  - key: Some Key
+    value: true
+    type: 2
+  - key: pog
+    value: 456
+    type: 0
+  - key: sadge
+    value: Hi my name is
+    type: 1
+  jsonPairsString: '{"Some Key":true,"pog":456,"sadge":"Hi my name is"}'
+  monoBehaviourToSerialize: {fileID: 803841133}
+  monoBehaviourOutputString: '{"apiKey":"AIzaSyCvXchqXTR_MNt7Fz7R6E9BXAMnvddVknU","spreadsheetId":"1_CMS5yDEwgF7XknK50BMNm4ka9SmiqfPtjKVa5rG6rY","immediatelyRequestData":true}'
+  scriptableObjectToSerialize: {fileID: 11400000, guid: b711d55be4632554dace180fe68ba5fe,
+    type: 2}
+  scriptableObjectOutputString: '{"triggerType":1,"weaponType":0,"fireRate":0.30000001192092898,"reloadTime":NaN,"clipSize":8,"damage":5.0,"ammoType":0,"projectilePrefab":{"instanceID":0},"projectileLaunchForce":200.0,"advancedSettings":{"spreadAngle":0.0,"projectilePerShot":1,"screenShakeMultiplier":1.0},"FireAnimationClip":{"instanceID":20270},"ReloadAnimationClip":{"instanceID":20268},"FireAudioClip":{"instanceID":21046},"ReloadAudioClip":{"instanceID":21044},"PrefabRayTrail":{"instanceID":21230}}'
+--- !u!4 &229041903
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229041901}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.003421, y: 2.013628, z: -5.2390695}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &276474414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,6 +1348,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633156021}
   m_CullTransparentMesh: 0
+--- !u!1 &655073461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 655073463}
+  - component: {fileID: 655073462}
+  m_Layer: 0
+  m_Name: Json Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &655073462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655073461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 349909df2973e4741ac23faedbd06eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sheetManager: {fileID: 803841133}
+  GermOBlaster: {fileID: 11400000, guid: 56a2b9d2a448e254f80edc4d066d64e9, type: 2}
+  HealMatic500: {fileID: 11400000, guid: b711d55be4632554dace180fe68ba5fe, type: 2}
+  HealOMatic501: {fileID: 11400000, guid: 006acb81fc8811e488acb9ddbad8c9ed, type: 2}
+  MedSpreader: {fileID: 11400000, guid: cf2301eb4e897d94ab161f89bc892d7a, type: 2}
+  Pill: {fileID: 11400000, guid: 700fd30968264d04abdfe983bfb5ee01, type: 2}
+  fileName: scriptableObjectJson
+  fileExtension: txt
+  saveToText: 0
+  readFromText: 0
+--- !u!4 &655073463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655073461}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.003421, y: 2.013628, z: -5.2390695}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &676103654
 GameObject:
   m_ObjectHideFlags: 0
@@ -1537,7 +1649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   apiKey: AIzaSyCvXchqXTR_MNt7Fz7R6E9BXAMnvddVknU
   spreadsheetId: 1_CMS5yDEwgF7XknK50BMNm4ka9SmiqfPtjKVa5rG6rY
-  immediatelyRequestData: 0
+  immediatelyRequestData: 1
 --- !u!4 &803841134
 Transform:
   m_ObjectHideFlags: 0
@@ -2846,7 +2958,6 @@ MonoBehaviour:
   HealOMatic501: {fileID: 11400000, guid: 006acb81fc8811e488acb9ddbad8c9ed, type: 2}
   MedSpreader: {fileID: 11400000, guid: cf2301eb4e897d94ab161f89bc892d7a, type: 2}
   Pill: {fileID: 11400000, guid: 700fd30968264d04abdfe983bfb5ee01, type: 2}
-  PillProjectile: {fileID: 0}
   sheetManager: {fileID: 803841133}
 --- !u!4 &1543953420
 Transform:

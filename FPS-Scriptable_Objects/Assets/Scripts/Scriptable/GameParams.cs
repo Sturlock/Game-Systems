@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LightJson;
 
 public class GameParams : ScriptableObject
 {
@@ -8,30 +9,21 @@ public class GameParams : ScriptableObject
     public float gameTimer;
     public Target_sObj enemyParams;
 
-    public void FromJson(GameParamsJsonData inJson)
+    public void FromJson(JsonObject inJson)
     { 
         if(inJson != null)
         {
-            playerHealth = inJson.playerHealth;
-            gameTimer = inJson.gameTimer;
-
-            enemyParams.health = inJson.enemyParams.health;
-            enemyParams.pointValue = inJson.enemyParams.pointValue;
-            enemyParams.redHealth = inJson.enemyParams.redHealth;
-            enemyParams.redPointValue = inJson.enemyParams.redPointValue;
+            playerHealth = (float)inJson["player_Health"];
+            gameTimer = (float)inJson["game_Timer"];
         }
         
     }
-    public GameParamsJsonData ToJson()
+    public JsonObject ToJson()
     {
-        GameParamsJsonData jsonData = new GameParamsJsonData();
-        jsonData.playerHealth = playerHealth;
-        jsonData.gameTimer = gameTimer;
-
-        jsonData.enemyParams.health = enemyParams.health;
-        jsonData.enemyParams.pointValue = enemyParams.pointValue;
-        jsonData.enemyParams.redHealth = enemyParams.redHealth;
-        jsonData.enemyParams.redPointValue = enemyParams.redPointValue;
+        JsonObject jsonData = new JsonObject();
+        jsonData.Add("player_Health", (double)playerHealth);
+        jsonData.Add("game_Timer", (double)gameTimer);
+        
         return jsonData;
     }
 }
