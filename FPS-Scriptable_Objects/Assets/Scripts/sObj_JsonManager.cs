@@ -116,6 +116,7 @@ public class sObj_JsonManager : MonoBehaviour
                 MedSpreader.FromJson(weapons["MedSpreader"]);
                 Pill.FromJson(weapons["Pill"]);
             }
+            //Expand to all JSON Implimentations
         }
         else
         {
