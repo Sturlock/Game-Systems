@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/DataAsset.h"
+#include "JsonDataAssetBase.h"
 #include "EnemyRewardData.generated.h"
 
 /**
  * 
  */
 UCLASS(BlueprintType)
-class ACTIONRPG_API UEnemyRewardData : public UDataAsset
+class ACTIONRPG_API UEnemyRewardData : public UJsonDataAssetBase
 {
 	GENERATED_BODY()
 	
@@ -28,5 +28,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Reward)
 	float PotionDropChance;
+
+	virtual TSharedPtr<FJsonObject> ToJson() override;
+	virtual bool FromJson(FJsonObject& jsonObject) override;
 	
 };
