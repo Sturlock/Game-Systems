@@ -31,5 +31,4 @@ public:
 
 	virtual TSharedPtr<FJsonObject> ToJson() override;
 	virtual bool FromJson(FJsonObject& jsonObject) override;
-	
 };

@@ -36,6 +36,7 @@ public:
 		bool bFromJson;
 	UPROPERTY(EditAnywhere, Category = "JSON Editor")
 		bool bToJson;
+	
 
 protected:
 	// Called when the game starts or when spawned
