@@ -2,7 +2,6 @@
 
 
 #include "weaponActor.h"
-
 // Sets default values
 AweaponActor::AweaponActor()
 {
@@ -15,11 +14,11 @@ AweaponActor::AweaponActor()
 	bIsAttacking;
 	bEnableAttackDelay;
 
-	Mesh = CreateAbstractDefaultSubobject<USkeletalMeshComponent>(TEXT("WeaponMesh"));
+	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WeaponMesh"));
 	Mesh->SetupAttachment(RootComponent);
 	Mesh->OnComponentBeginOverlap.AddDynamic(this, &AweaponActor::OnOverlapBegin);
 
-	CapsuleComponent = CreateAbstractDefaultSubobject<UCapsuleComponent>(TEXT("CapsualComponent"));
+	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsualComponent"));
 	CapsuleComponent->SetupAttachment(RootComponent);
 
 }

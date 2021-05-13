@@ -5,7 +5,7 @@
 #include "RPGCharacterBase.h"
 #include "GameplayEffect.h"
 #include "GameplayEffectExtension.h"
-
+#pragma optimize("", off)
 URPGAttributeSet::URPGAttributeSet()
 	: Health(1.f)
 	, MaxHealth(1.f)
@@ -216,3 +216,4 @@ void URPGAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 		}
 	}
 }
+#pragma optimize("", on)

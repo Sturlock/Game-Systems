@@ -6,13 +6,13 @@
 #include "DataAssets/JsonDataAssetBase.h"
 #include "JsonObjectConverter.h"
 #include "Classes/GameplayTagContainer.h"
-#include "WaveStruct.generated.h"
+#include "WaveAssetData.generated.h"
 
 UENUM(BlueprintType)
 enum class EWaveDifficult : uint8
 {
-	WD_Easy			UMETA(DisplayName = "Easy")
-	WD_Normal		UMETA(DisplayName = "Normal")
+	WD_Easy			UMETA(DisplayName = "Easy"),
+	WD_Normal		UMETA(DisplayName = "Normal"),
 	WD_Hard			UMETA(DisplayName = "Hard")
 };
 
@@ -48,8 +48,8 @@ public:
 
 	void FromJson(TSharedRef<FJsonObject> json);
 };
-
-class ACTIONRPG_API WaveStruct : public UJsonDataAssetBase
+UCLASS(BlueprintType)
+class ACTIONRPG_API UWaveAssetData : public UJsonDataAssetBase
 {
 
 	GENERATED_BODY()

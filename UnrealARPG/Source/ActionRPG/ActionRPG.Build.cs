@@ -27,7 +27,8 @@ public class ActionRPG : ModuleRules
 				"GameplayAbilities",
 				"GameplayTags",
 				"GameplayTasks",
-				"JSON"
+				"JSON",
+				"JsonUtilities"
 			}
 		);
 
