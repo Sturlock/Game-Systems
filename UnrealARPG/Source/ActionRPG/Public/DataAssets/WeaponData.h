@@ -7,7 +7,9 @@
 #include "Components/Image.h"
 #include <Items/RPGItem.h>
 #include "JsonDataAssetBase.h"
+#include "weaponActor.h"
 #include "WeaponData.generated.h"
+
 
 /**
  * 
@@ -20,7 +22,7 @@ public:
 	UWeaponData();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
-		TSubclassOf<AActor> weaponActor;
+		TSubclassOf<AweaponActor> weaponActor;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
 		FString itemName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
