@@ -1,6 +1,5 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
-
 #include "JsonManagemenetActor.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
@@ -8,17 +7,16 @@
 // Sets default values
 AJsonManagemenetActor::AJsonManagemenetActor()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts or when spawned
 void AJsonManagemenetActor::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	if(jsonDataAsset != nullptr && !JsonInputString.IsEmpty())
+
+	if (jsonDataAsset != nullptr && !JsonInputString.IsEmpty())
 	{
 		TSharedPtr<FJsonObject> jsonObject = GetJsonFromString(JsonInputString);
 		jsonDataAsset->FromJson(*jsonObject.Get());
@@ -29,7 +27,6 @@ void AJsonManagemenetActor::BeginPlay()
 void AJsonManagemenetActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 TSharedPtr<FJsonObject> AJsonManagemenetActor::GetJsonFromString(const FString& jsonString)

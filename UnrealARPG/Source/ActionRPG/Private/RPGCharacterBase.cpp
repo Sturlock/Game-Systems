@@ -37,10 +37,10 @@ UAbilitySystemComponent* ARPGCharacterBase::GetAbilitySystemComponent() const
 void ARPGCharacterBase::AddStartupGameplayAbilities()
 {
 	check(AbilitySystemComponent);
-	
+
 	if (GetLocalRole() == ROLE_Authority && !bAbilitiesInitialized)
 	{
-		// Grant abilities, but only on the server	
+		// Grant abilities, but only on the server
 		for (TSubclassOf<URPGGameplayAbility>& StartupAbility : GameplayAbilities)
 		{
 			AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(StartupAbility, GetCharacterLevel(), INDEX_NONE, this));
@@ -155,7 +155,7 @@ void ARPGCharacterBase::FillSlottedAbilitySpecs(TMap<FRPGItemSlot, FGameplayAbil
 					// May be instances of code trying to cast old data types from object owner :(
 					SlottedAbilitySpecs.Add(ItemPair.Key, FGameplayAbilitySpec(itemData.GrantedAbility, AbilityLevel, INDEX_NONE, GetGameInstance()));
 				}
-			}			
+			}
 		}
 	}
 }
@@ -164,7 +164,7 @@ void ARPGCharacterBase::AddSlottedGameplayAbilities()
 {
 	TMap<FRPGItemSlot, FGameplayAbilitySpec> SlottedAbilitySpecs;
 	FillSlottedAbilitySpecs(SlottedAbilitySpecs);
-	
+
 	// Now add abilities if needed
 	for (const TPair<FRPGItemSlot, FGameplayAbilitySpec>& SpecPair : SlottedAbilitySpecs)
 	{
@@ -202,9 +202,9 @@ void ARPGCharacterBase::RemoveSlottedGameplayAbilities(bool bRemoveAll)
 				bShouldRemove = true;
 			}
 		}
-		
+
 		if (bShouldRemove)
-		{	
+		{
 			if (FoundSpec)
 			{
 				// Need to remove registered ability
@@ -399,7 +399,7 @@ bool ARPGCharacterBase::GetCooldownRemainingForTag(FGameplayTagContainer Cooldow
 
 void ARPGCharacterBase::HandleDamage(float DamageAmount, const FHitResult& HitInfo, const struct FGameplayTagContainer& DamageTags, ARPGCharacterBase* InstigatorPawn, AActor* DamageCauser)
 {
-	OnDamaged(DamageAmount, HitInfo, DamageTags, InstigatorPawn, DamageCauser);	
+	OnDamaged(DamageAmount, HitInfo, DamageTags, InstigatorPawn, DamageCauser);
 }
 
 void ARPGCharacterBase::HandleHealthChanged(float DeltaValue, const struct FGameplayTagContainer& EventTags)

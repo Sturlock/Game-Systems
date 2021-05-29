@@ -12,17 +12,17 @@ UCLASS()
 class ACTIONRPG_API AJsonManagemenetActor : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AJsonManagemenetActor();
 
 	UPROPERTY(EditAnywhere, Category = JSON)
-	FString JsonInputString;
+		FString JsonInputString;
 
 	UPROPERTY(EditAnywhere, Category = JSON)
-	UJsonDataAssetBase* jsonDataAsset;
-	
+		UJsonDataAssetBase* jsonDataAsset;
+
 	TSharedPtr<FJsonObject> GetJsonFromString(const FString& jsonString);
 
 	FString GetStringFromJson(TSharedRef<FJsonObject> jsonObject);
@@ -36,7 +36,6 @@ public:
 		bool bFromJson;
 	UPROPERTY(EditAnywhere, Category = "JSON Editor")
 		bool bToJson;
-	
 
 protected:
 	// Called when the game starts or when spawned
@@ -44,8 +43,7 @@ protected:
 
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
 };

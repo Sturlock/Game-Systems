@@ -41,8 +41,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Wave Date")
 	float WaveTime;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Wave Date")
-	float NumOfCake;
 
 	TSharedRef<FJsonObject> ToJson();
 

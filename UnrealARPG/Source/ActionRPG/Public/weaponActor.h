@@ -15,8 +15,8 @@ UCLASS()
 class ACTIONRPG_API AweaponActor : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AweaponActor();
 
@@ -32,20 +32,18 @@ public:
 		FGameplayTag attackEventTag;
 
 	UFUNCTION(BlueprintCallable)
-	void BeginWeaponAttack(FGameplayTag Event_Tag, float Attack_Time_Delay, int32 Attack_Delay_Count);
+		void BeginWeaponAttack(FGameplayTag Event_Tag, float Attack_Time_Delay, int32 Attack_Delay_Count);
 	UFUNCTION(BlueprintCallable)
-	void EndWeaponAttack();
-
-	
+		void EndWeaponAttack();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	UFUNCTION()
-		void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, 
+		void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 			int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

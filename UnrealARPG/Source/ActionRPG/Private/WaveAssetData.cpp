@@ -24,7 +24,7 @@ TSharedRef<FJsonObject> FWaveData::ToJson()
 {
 	TSharedRef<FJsonObject> outJson = MakeShared<FJsonObject>();
 	outJson->SetNumberField("WaveTime", WaveTime);
-	outJson->SetNumberField("NumOfCake", NumOfCake);
+
 
 	TArray<TSharedPtr<FJsonValue>> objects = TArray<TSharedPtr<FJsonValue>>();
 
@@ -43,7 +43,7 @@ TSharedRef<FJsonObject> FWaveData::ToJson()
 void FWaveData::FromJson(TSharedRef<FJsonObject> json)
 {
 	WaveTime = json->GetNumberField("WaveTime");
-	NumOfCake = json->GetNumberField("NumOfCake");
+
 
 	EnemiesGroup.Empty();
 	const TArray<TSharedPtr<FJsonValue>> valArray = json->GetArrayField("EnemiesGroup");
