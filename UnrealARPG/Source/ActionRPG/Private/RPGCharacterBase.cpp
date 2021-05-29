@@ -137,7 +137,7 @@ void ARPGCharacterBase::FillSlottedAbilitySpecs(TMap<FRPGItemSlot, FGameplayAbil
 			// Use the character level as default
 			int32 AbilityLevel = GetCharacterLevel();
 
-			FRPGItemStruct itemData;
+			UItemDataAsset itemData;
 			if (GetGameInstance() && GetGameInstance()->TryGetBaseItemData(itemKey, itemSlot.ItemType, itemData))
 			{
 				if (itemData.ItemType == ERPGItemType::Weapon)

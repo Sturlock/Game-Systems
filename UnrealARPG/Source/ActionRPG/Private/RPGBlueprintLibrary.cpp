@@ -41,7 +41,7 @@ bool URPGBlueprintLibrary::IsValidItemSlot(const FRPGItemSlot& ItemSlot)
 	return ItemSlot.IsValid();
 }
 
-bool URPGBlueprintLibrary::IsItemConsumable(const FRPGItemStruct& item)
+bool URPGBlueprintLibrary::IsItemConsumable(const UItemDataAsset& item)
 {
 	return item.MaxCount <= 0;
 }

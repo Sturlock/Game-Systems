@@ -3,6 +3,7 @@
 #include "RPGPlayerControllerBase.h"
 #include "RPGCharacterBase.h"
 #include "RPGGameInstanceBase.h"
+#include "ItemDataAsset.h"
 
 // LA -
 // Prevents code optimisation which is useful for stepping through as it means
@@ -11,10 +12,10 @@
 // See: https://docs.microsoft.com/en-us/cpp/preprocessor/optimize?view=msvc-160
 #pragma optimize("", off)
 
-bool ARPGPlayerControllerBase::AddInventoryItem(FString NewItemKey, ERPGItemType ItemType, int32 ItemCount, int32 ItemLevel, bool bAutoSlot)
+bool ARPGPlayerControllerBase::AddInventoryItem(UItemDataAsset* NewItem, ERPGItemType ItemType, int32 ItemCount, int32 ItemLevel, bool bAutoSlot)
 {
 	bool bChanged = false;
-	if (NewItemKey.IsEmpty() || ItemType == ERPGItemType::Undefined)
+	if (!NewItem || ItemType == ERPGItemType::Undefined)
 	{
 		UE_LOG(LogActionRPG, Warning, TEXT("AddInventoryItem: Failed trying to add null item!"));
 		return false;
@@ -22,21 +23,21 @@ bool ARPGPlayerControllerBase::AddInventoryItem(FString NewItemKey, ERPGItemType
 
 	if (ItemCount <= 0 || ItemLevel <= 0)
 	{
-		UE_LOG(LogActionRPG, Warning, TEXT("AddInventoryItem: Failed trying to add item %s with negative count or level!"), *NewItemKey);
+		UE_LOG(LogActionRPG, Warning, TEXT("AddInventoryItem: Failed trying to add item %s with negative count or level!"), *NewItem->GetName());
 		return false;
 	}
 
-	if (!GetGameInstance() || !GetGameInstance()->ItemExists(NewItemKey, ItemType))
+	if (!GetGameInstance() || !GetGameInstance()->ItemExists(NewItem, ItemType))
 	{
-		UE_LOG(LogActionRPG, Warning, TEXT("AddInventoryItem: Failed trying to add item %s could not find on game instance!"), *NewItemKey);
+		UE_LOG(LogActionRPG, Warning, TEXT("AddInventoryItem: Failed trying to add item %s could not find on game instance!"), *NewItem->GetName());
 		return false;
 	}
 
 	// Find current item data, which may be empty
 	FRPGItemData OldData;
-	GetInventoryItemData(NewItemKey, OldData);
+	GetInventoryItemData(NewItem, OldData);
 
-	FRPGItemStruct itemData = GetGameInstance()->GetBaseItemData(NewItemKey, ItemType);
+	UItemDataAsset itemData = GetGameInstance()->GetBaseItemData(NewItem, ItemType);
 
 	// Find modified data
 	FRPGItemData NewData = OldData;
@@ -45,15 +46,15 @@ bool ARPGPlayerControllerBase::AddInventoryItem(FString NewItemKey, ERPGItemType
 	if (OldData != NewData)
 	{
 		// If data changed, need to update storage and call callback
-		InventoryData.Add(NewItemKey, NewData);
-		NotifyInventoryItemChanged(true, NewItemKey, ItemType);
+		InventoryData.Add(NewItem, NewData);
+		NotifyInventoryItemChanged(true, NewItem, ItemType);
 		bChanged = true;
 	}
 
 	if (bAutoSlot)
 	{
 		// Slot item if required
-		bChanged |= FillEmptySlotWithItem(NewItemKey, ItemType);
+		bChanged |= FillEmptySlotWithItem(NewItem, ItemType);
 	}
 
 	if (bChanged)
@@ -63,9 +64,9 @@ bool ARPGPlayerControllerBase::AddInventoryItem(FString NewItemKey, ERPGItemType
 	return false;
 }
 
-bool ARPGPlayerControllerBase::RemoveInventoryItem(FString RemovedItemKey, int32 RemoveCount)
+bool ARPGPlayerControllerBase::RemoveInventoryItem(UItemDataAsset* RemovedItem, int32 RemoveCount = 1)
 {
-	if (RemovedItemKey.IsEmpty())
+	if (!RemovedItem)
 	{
 		UE_LOG(LogActionRPG, Warning, TEXT("RemoveInventoryItem: Failed trying to remove null item!"));
 		return false;
@@ -73,7 +74,7 @@ bool ARPGPlayerControllerBase::RemoveInventoryItem(FString RemovedItemKey, int32
 
 	// Find current item data, which may be empty
 	FRPGItemData NewData;
-	GetInventoryItemData(RemovedItemKey, NewData);
+	GetInventoryItemData(RemovedItem, NewData);
 
 	if (!NewData.IsValid())
 	{
@@ -94,16 +95,16 @@ bool ARPGPlayerControllerBase::RemoveInventoryItem(FString RemovedItemKey, int32
 	if (NewData.ItemCount > 0)
 	{
 		// Update data with new count
-		InventoryData.Add(RemovedItemKey, NewData);
+		InventoryData.Add(RemovedItem, NewData);
 	}
 	else
 	{
 		// Remove item entirely, make sure it is unslotted
-		InventoryData.Remove(RemovedItemKey);
+		InventoryData.Remove(RemovedItem);
 
-		for (TPair<FRPGItemSlot, FString>& Pair : SlottedItems)
+		for (TPair<FRPGItemSlot, UItemDataAsset*>& Pair : SlottedItems)
 		{
-			if (Pair.Value == RemovedItemKey)
+			if (Pair.Value == RemovedItem)
 			{
 				Pair.Value = nullptr;
 				NotifySlottedItemChanged(Pair.Key, Pair.Value, Pair.Key.ItemType);
@@ -112,13 +113,13 @@ bool ARPGPlayerControllerBase::RemoveInventoryItem(FString RemovedItemKey, int32
 	}
 
 	// If we got this far, there is a change so notify and save
-	NotifyInventoryItemChanged(false, RemovedItemKey, NewData.ItemType);
+	NotifyInventoryItemChanged(false, RemovedItem, NewData.ItemType);
 	return true;
 }
 
-void ARPGPlayerControllerBase::GetInventoryItems(TArray<FString>& Items, ERPGItemType ItemType)
+void ARPGPlayerControllerBase::GetInventoryItems(TArray<UItemDataAsset*>& Items, ERPGItemType ItemType)
 {
-	for (const TPair<FString, FRPGItemData>& Pair : InventoryData)
+	for (const TPair<UItemDataAsset*, FRPGItemData>& Pair : InventoryData)
 	{
 		if (Pair.Value.ItemType == ItemType || ItemType == ERPGItemType::Undefined)
 		{
@@ -127,23 +128,23 @@ void ARPGPlayerControllerBase::GetInventoryItems(TArray<FString>& Items, ERPGIte
 	}
 }
 
-bool ARPGPlayerControllerBase::SetSlottedItem(FRPGItemSlot ItemSlot, FString ItemKey)
+bool ARPGPlayerControllerBase::SetSlottedItem(FRPGItemSlot ItemSlot, UItemDataAsset* Item)
 {
 	// Iterate entire inventory because we need to remove from old slot
 	bool bFound = false;
-	for (TPair<FRPGItemSlot, FString>& Pair : SlottedItems)
+	for (TPair<FRPGItemSlot, UItemDataAsset*>& Pair : SlottedItems)
 	{
 		if (Pair.Key == ItemSlot)
 		{
 			// Add to new slot
 			bFound = true;
-			Pair.Value = ItemKey;
+			Pair.Value = Item;
 			NotifySlottedItemChanged(Pair.Key, Pair.Value, Pair.Key.ItemType);
 		}
-		else if (!ItemKey.IsEmpty() && Pair.Value == ItemKey)
+		else if (Item != nullptr && Pair.Value == Item)
 		{
 			// If this item was found in another slot, remove it
-			Pair.Value = "";
+			Pair.Value = nullptr;
 			NotifySlottedItemChanged(Pair.Key, Pair.Value, Pair.Key.ItemType);
 		}
 	}
@@ -155,9 +156,9 @@ bool ARPGPlayerControllerBase::SetSlottedItem(FRPGItemSlot ItemSlot, FString Ite
 	return false;
 }
 
-int32 ARPGPlayerControllerBase::GetInventoryItemCount(FString ItemKey) const
+int32 ARPGPlayerControllerBase::GetInventoryItemCount(UItemDataAsset* Item) const
 {
-	const FRPGItemData* FoundItem = InventoryData.Find(ItemKey);
+	const FRPGItemData* FoundItem = InventoryData.Find(Item);
 
 	if (FoundItem)
 	{
@@ -166,9 +167,9 @@ int32 ARPGPlayerControllerBase::GetInventoryItemCount(FString ItemKey) const
 	return 0;
 }
 
-bool ARPGPlayerControllerBase::GetInventoryItemData(FString ItemKey, FRPGItemData& ItemData) const
+bool ARPGPlayerControllerBase::GetInventoryItemData(UItemDataAsset* Item, FRPGItemData& ItemData) const
 {
-	const FRPGItemData* FoundItem = InventoryData.Find(ItemKey);
+	const FRPGItemData* FoundItem = InventoryData.Find(Item);
 
 	if (FoundItem)
 	{
@@ -179,9 +180,10 @@ bool ARPGPlayerControllerBase::GetInventoryItemData(FString ItemKey, FRPGItemDat
 	return false;
 }
 
-FString ARPGPlayerControllerBase::GetSlottedItem(FRPGItemSlot ItemSlot, FRPGItemStruct& OutItemData) const
+UItemDataAsset* ARPGPlayerControllerBase::GetSlottedItem(FRPGItemSlot ItemSlot, UItemDataAsset& OutItemData) const
 {
-	const FString* FoundItem = SlottedItems.Find(ItemSlot);
+	
+	 UItemDataAsset* const* FoundItem = SlottedItems.Find(ItemSlot);
 
 	if (FoundItem)
 	{
@@ -190,12 +192,12 @@ FString ARPGPlayerControllerBase::GetSlottedItem(FRPGItemSlot ItemSlot, FRPGItem
 		URPGGameInstanceBase* gi = World ? World->GetGameInstance<URPGGameInstanceBase>() : nullptr;
 		if (!gi || !gi->FindItem(*FoundItem, itemType, OutItemData))
 		{
-			OutItemData = FRPGItemStruct();
+			OutItemData = UItemDataAsset();
 		}
 		return *FoundItem;
 	}
-	OutItemData = FRPGItemStruct();
-	return "";
+	OutItemData = UItemDataAsset();
+	return nullptr;
 }
 
 void ARPGPlayerControllerBase::GetSlottedItems(TArray<FString>& Items, ERPGItemType ItemType, bool bOutputEmptyIndexes)
@@ -255,14 +257,14 @@ URPGGameInstanceBase* ARPGPlayerControllerBase::GetGameInstance()
 	return GameInstance;
 }
 
-bool ARPGPlayerControllerBase::FillEmptySlotWithItem(FString NewItemKey, ERPGItemType ItemType)
+bool ARPGPlayerControllerBase::FillEmptySlotWithItem(FString NewItem, ERPGItemType ItemType)
 {
 	FRPGItemSlot EmptySlot;
 	for (TPair<FRPGItemSlot, FString>& Pair : SlottedItems)
 	{
 		if (Pair.Key.ItemType == ItemType)
 		{
-			if (Pair.Value == NewItemKey)
+			if (Pair.Value == NewItem)
 			{
 				// Item is already slotted
 				return false;
@@ -277,32 +279,32 @@ bool ARPGPlayerControllerBase::FillEmptySlotWithItem(FString NewItemKey, ERPGIte
 
 	if (EmptySlot.IsValid())
 	{
-		SlottedItems[EmptySlot] = NewItemKey;
-		NotifySlottedItemChanged(EmptySlot, NewItemKey, ItemType);
+		SlottedItems[EmptySlot] = NewItem;
+		NotifySlottedItemChanged(EmptySlot, NewItem, ItemType);
 		return true;
 	}
 
 	return false;
 }
 
-void ARPGPlayerControllerBase::NotifyInventoryItemChanged(bool bAdded, FString ItemKey, ERPGItemType ItemType)
+void ARPGPlayerControllerBase::NotifyInventoryItemChanged(bool bAdded, UItemDataAsset* Item, ERPGItemType ItemType)
 {
 	// Notify native before blueprint
-	OnInventoryItemChangedNative.Broadcast(bAdded, ItemKey, ItemType);
-	OnInventoryItemChanged.Broadcast(bAdded, ItemKey, ItemType);
+	OnInventoryItemChangedNative.Broadcast(bAdded, Item, ItemType);
+	OnInventoryItemChanged.Broadcast(bAdded, Item, ItemType);
 
 	// Call BP update event
-	InventoryItemChanged(bAdded, ItemKey, ItemType);
+	InventoryItemChanged(bAdded, Item, ItemType);
 }
 
-void ARPGPlayerControllerBase::NotifySlottedItemChanged(FRPGItemSlot ItemSlot, FString ItemKey, ERPGItemType ItemType)
+void ARPGPlayerControllerBase::NotifySlottedItemChanged(FRPGItemSlot ItemSlot, UItemDataAsset* Item, ERPGItemType ItemType)
 {
 	// Notify native before blueprint
-	OnSlottedItemChangedNative.Broadcast(ItemSlot, ItemKey, ItemType);
-	OnSlottedItemChanged.Broadcast(ItemSlot, ItemKey, ItemType);
+	OnSlottedItemChangedNative.Broadcast(ItemSlot, Item, ItemType);
+	OnSlottedItemChanged.Broadcast(ItemSlot, Item, ItemType);
 
 	// Call BP update event
-	SlottedItemChanged(ItemSlot, ItemKey, ItemType);
+	SlottedItemChanged(ItemSlot, Item, ItemType);
 }
 
 void ARPGPlayerControllerBase::NotifyInventoryLoaded()

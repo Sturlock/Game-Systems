@@ -118,31 +118,31 @@ FRPGWeaponItemStruct URPGGameInstanceBase::GetWeapon(FString WeaponKey) const
 	return FRPGWeaponItemStruct();
 }
 
-bool URPGGameInstanceBase::TryGetBaseItemData(FString ItemKey, ERPGItemType ItemType, FRPGItemStruct& outItem) const
+bool URPGGameInstanceBase::TryGetBaseItemData(UItemDataAsset* ItemKey, ERPGItemType ItemType, UItemDataAsset& outItem) const
 {
 	switch (ItemType)
 	{
 	case ERPGItemType::Potion:
 	{
-		FRPGItemStruct* ptr = (FRPGItemStruct*)Potions.Find(ItemKey);
+		UItemDataAsset* ptr = (UItemDataAsset*)Potions.Find(ItemKey);
 		if (ptr != nullptr) outItem = *ptr;
 		return ptr != nullptr;
 	}		
 	case ERPGItemType::Skill:
 	{
-		FRPGItemStruct* ptr = (FRPGItemStruct*)Skills.Find(ItemKey);
+		UItemDataAsset* ptr = (UItemDataAsset*)Skills.Find(ItemKey);
 		if (ptr != nullptr) outItem = *ptr;
 		return ptr != nullptr;
 	}
 	case ERPGItemType::Token:
 	{
-		FRPGItemStruct* ptr = (FRPGItemStruct*)Tokens.Find(ItemKey);
+		UItemDataAsset* ptr = (UItemDataAsset*)Tokens.Find(ItemKey);
 		if (ptr != nullptr) outItem = *ptr;
 		return ptr != nullptr;
 	}
 	case ERPGItemType::Weapon:
 	{
-		FRPGItemStruct* ptr = (FRPGItemStruct*)Weapons.Find(ItemKey);
+		UItemDataAsset* ptr = (UItemDataAsset*)Weapons.Find(ItemKey);
 		if (ptr != nullptr) outItem = *ptr;
 		return ptr != nullptr;
 	}
@@ -151,73 +151,73 @@ bool URPGGameInstanceBase::TryGetBaseItemData(FString ItemKey, ERPGItemType Item
 		bool found = FindItem(ItemKey, itemType, outItem);
 		return found;
 	}
-	outItem = FRPGItemStruct();
+	outItem = UItemDataAsset();
 	return false;
 }
 
-FRPGItemStruct URPGGameInstanceBase::GetBaseItemData(FString ItemKey, ERPGItemType ItemType) const
+UItemDataAsset URPGGameInstanceBase::GetBaseItemData(UItemDataAsset* ItemKey, ERPGItemType ItemType) const
 {
 	switch (ItemType)
 	{
 	case ERPGItemType::Potion:
 	{
-		FRPGItemStruct* ptr = (FRPGItemStruct*)Potions.Find(ItemKey);
+		UItemDataAsset* ptr = (UItemDataAsset*)Potions.Find(ItemKey);
 		if (ptr != nullptr) return *ptr;
-		else return FRPGItemStruct();
+		else return UItemDataAsset();
 	}
 	case ERPGItemType::Skill:
 	{
-		FRPGItemStruct* ptr = (FRPGItemStruct*)Skills.Find(ItemKey);
+		UItemDataAsset* ptr = (UItemDataAsset*)Skills.Find(ItemKey);
 		if (ptr != nullptr) return *ptr;
-		else return FRPGItemStruct();
+		else return UItemDataAsset();
 	}
 	case ERPGItemType::Token:
 	{
-		FRPGItemStruct* ptr = (FRPGItemStruct*)Tokens.Find(ItemKey);
+		UItemDataAsset* ptr = (UItemDataAsset*)Tokens.Find(ItemKey);
 		if (ptr != nullptr) return *ptr;
-		else return FRPGItemStruct();
+		else return UItemDataAsset();
 	}
 	case ERPGItemType::Weapon:
 	{
-		FRPGItemStruct* ptr = (FRPGItemStruct*)Weapons.Find(ItemKey);
+		UItemDataAsset* ptr = (UItemDataAsset*)Weapons.Find(ItemKey);
 		if (ptr != nullptr) return *ptr;
-		else return FRPGItemStruct();
+		else return UItemDataAsset();
 	}
 	case ERPGItemType::Undefined:
 	{
 		ERPGItemType itemType;
-		FRPGItemStruct itemData;
+		UItemDataAsset itemData;
 		FindItem(ItemKey, itemType, itemData);
 		return itemData;
 	}
 	}
-	return FRPGItemStruct();
+	return UItemDataAsset();
 }
 
-bool URPGGameInstanceBase::FindItem(FString ItemKey, ERPGItemType& OutItemType, FRPGItemStruct& OutItemData) const
+bool URPGGameInstanceBase::FindItem(UItemDataAsset* ItemKey, ERPGItemType& OutItemType, UItemDataAsset& OutItemData) const
 {
-	FRPGItemStruct* ptr = (FRPGItemStruct*)Potions.Find(ItemKey);
+	UItemDataAsset* ptr = (UItemDataAsset*)Potions.Find(ItemKey);
 	if (ptr != nullptr)
 	{
 		OutItemType = ERPGItemType::Potion;
 		OutItemData = *ptr;
 		return true;
 	}
-	ptr = (FRPGItemStruct*)Skills.Find(ItemKey);
+	ptr = (UItemDataAsset*)Skills.Find(ItemKey);
 	if (ptr != nullptr)
 	{
 		OutItemType = ERPGItemType::Skill;
 		OutItemData = *ptr;
 		return true;
 	}
-	ptr = (FRPGItemStruct*)Tokens.Find(ItemKey);
+	ptr = (UItemDataAsset*)Tokens.Find(ItemKey);
 	if (ptr != nullptr)
 	{
 		OutItemType = ERPGItemType::Token;
 		OutItemData = *ptr;
 		return true;
 	}
-	ptr = (FRPGItemStruct*)Weapons.Find(ItemKey);
+	ptr = (UItemDataAsset*)Weapons.Find(ItemKey);
 	if (ptr != nullptr)
 	{
 		OutItemType = ERPGItemType::Weapon;
@@ -225,20 +225,20 @@ bool URPGGameInstanceBase::FindItem(FString ItemKey, ERPGItemType& OutItemType, 
 		return true;
 	}
 	OutItemType = ERPGItemType::Undefined;
-	OutItemData = FRPGItemStruct();
+	OutItemData = UItemDataAsset();
 	return false;
 }
 
-void URPGGameInstanceBase::GetItemsBaseInfo(ERPGItemType ItemType, TMap<FString, FRPGItemStruct>& OutItems) const
+void URPGGameInstanceBase::GetItemsBaseInfo(ERPGItemType ItemType, TMap<FString, UItemDataAsset>& OutItems) const
 {
-	OutItems = TMap<FString, FRPGItemStruct>();
+	OutItems = TMap<FString, UItemDataAsset>();
 	switch (ItemType)
 	{
 	case ERPGItemType::Potion:
 	{
 		for (TPair<FString, FRPGPotionItemStruct> pair : Potions)
 		{
-			OutItems.Add(pair.Key, (FRPGItemStruct)pair.Value);
+			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
 		}
 		break;
 	}
@@ -246,7 +246,7 @@ void URPGGameInstanceBase::GetItemsBaseInfo(ERPGItemType ItemType, TMap<FString,
 	{
 		for (TPair<FString, FRPGSkillItemStruct> pair : Skills)
 		{
-			OutItems.Add(pair.Key, (FRPGItemStruct)pair.Value);
+			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
 		}
 		break;
 	}
@@ -254,7 +254,7 @@ void URPGGameInstanceBase::GetItemsBaseInfo(ERPGItemType ItemType, TMap<FString,
 	{
 		for (TPair<FString, FRPGTokenItemStruct> pair : Tokens)
 		{
-			OutItems.Add(pair.Key, (FRPGItemStruct)pair.Value);
+			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
 		}
 		break;
 	}
@@ -262,7 +262,7 @@ void URPGGameInstanceBase::GetItemsBaseInfo(ERPGItemType ItemType, TMap<FString,
 	{
 		for (TPair<FString, FRPGWeaponItemStruct> pair : Weapons)
 		{
-			OutItems.Add(pair.Key, (FRPGItemStruct)pair.Value);
+			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
 		}
 		break;
 	}
@@ -270,19 +270,19 @@ void URPGGameInstanceBase::GetItemsBaseInfo(ERPGItemType ItemType, TMap<FString,
 	{
 		for (TPair<FString, FRPGPotionItemStruct> pair : Potions)
 		{
-			OutItems.Add(pair.Key, (FRPGItemStruct)pair.Value);
+			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
 		}
 		for (TPair<FString, FRPGSkillItemStruct> pair : Skills)
 		{
-			OutItems.Add(pair.Key, (FRPGItemStruct)pair.Value);
+			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
 		}
 		for (TPair<FString, FRPGTokenItemStruct> pair : Tokens)
 		{
-			OutItems.Add(pair.Key, (FRPGItemStruct)pair.Value);
+			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
 		}
 		for (TPair<FString, FRPGWeaponItemStruct> pair : Weapons)
 		{
-			OutItems.Add(pair.Key, (FRPGItemStruct)pair.Value);
+			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
 		}
 		break;
 	}

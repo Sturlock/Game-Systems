@@ -10,7 +10,7 @@
 
 #include "RPGTypes.generated.h"
 
-class URPGItem;
+class UItemDataAsset;
 
 UENUM(BlueprintType)
 enum class ERPGItemType : uint8
@@ -141,12 +141,12 @@ struct ACTIONRPG_API FRPGItemData
 };
 
 /** Delegate called when an inventory item changes */
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnInventoryItemChanged, bool, bAdded, FString, ItemKey, ERPGItemType, ItemType);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnInventoryItemChanged, bool, bAdded, UItemDataAsset*, ItemKey, ERPGItemType, ItemType);
 DECLARE_MULTICAST_DELEGATE_ThreeParams(FOnInventoryItemChangedNative, bool, FString, ERPGItemType);
 
 /** Delegate called when the contents of an inventory slot change */
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnSlottedItemChanged, FRPGItemSlot, ItemSlot, FString, ItemKey, ERPGItemType, ItemType);
-DECLARE_MULTICAST_DELEGATE_ThreeParams(FOnSlottedItemChangedNative, FRPGItemSlot, FString, ERPGItemType);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnSlottedItemChanged, FRPGItemSlot, ItemSlot, UItemDataAsset*, ItemKey, ERPGItemType, ItemType);
+DECLARE_MULTICAST_DELEGATE_ThreeParams(FOnSlottedItemChangedNative, FRPGItemSlot, UItemDataAsset*, ERPGItemType);
 
 /** Delegate called when the entire inventory has been loaded, all items may have been replaced */
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryLoaded);

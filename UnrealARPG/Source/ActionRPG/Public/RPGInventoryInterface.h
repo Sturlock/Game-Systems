@@ -22,10 +22,10 @@ class ACTIONRPG_API IRPGInventoryInterface
 
 public:
 	/** Returns the map of items to data */
-	virtual const TMap<FString, FRPGItemData>& GetInventoryDataMap() const = 0;
+	virtual const TMap<UItemDataAsset*, FRPGItemData>& GetInventoryDataMap() const = 0;
 
 	/** Returns the map of slots to items */
-	virtual const TMap<FRPGItemSlot, FString>& GetSlottedItemMap() const = 0;
+	virtual const TMap<FRPGItemSlot, UItemDataAsset*>& GetSlottedItemMap() const = 0;
 
 	/** Gets the delegate for inventory item changes */
 	virtual FOnInventoryItemChangedNative& GetInventoryItemChangedDelegate() = 0;
