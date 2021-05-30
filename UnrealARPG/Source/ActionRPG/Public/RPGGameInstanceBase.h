@@ -35,13 +35,13 @@ public:
 	URPGGameInstanceBase();		
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Inventory)
-	TMap<UItemDataAsset*, FRPGPotionItemStruct> Potions;
+	TMap<UItemDataAsset*, URPGPotionItem> Potions;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Inventory)
-	TMap<UItemDataAsset*, FRPGSkillItemStruct> Skills;
+	TMap<UItemDataAsset*, URPGSkillItem> Skills;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Inventory)
-	TMap<UItemDataAsset*, FRPGTokenItemStruct> Tokens;
+	TMap<UItemDataAsset*, URPGTokenItem> Tokens;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Inventory)
 	TMap<UItemDataAsset*, UWeaponData> Weapons;
@@ -57,28 +57,28 @@ public:
 	bool ItemExists(UItemDataAsset* ItemKey, ERPGItemType ItemType) const;
 
 	UFUNCTION(BlueprintCallable, Category = Inventory)
-	bool TryGetPotion(UItemDataAsset* PotionKey, FRPGPotionItemStruct& outPotion) const;
+	bool TryGetPotion(UItemDataAsset* PotionKey, URPGPotionItem& outPotion) const;
 
 	UFUNCTION(BlueprintCallable, Category = Inventory)
-	FRPGPotionItemStruct GetPotion(UItemDataAsset* PotionKey) const;
+		URPGPotionItem GetPotion(UItemDataAsset* PotionKey) const;
 
 	UFUNCTION(BlueprintCallable, Category = Inventory)
-	bool TryGetSkill(UItemDataAsset* SkillKey, FRPGSkillItemStruct& outSkill) const;
+	bool TryGetSkill(UItemDataAsset* SkillKey, URPGSkillItem& outSkill) const;
 
 	UFUNCTION(BlueprintCallable, Category = Inventory)
-	FRPGSkillItemStruct GetSkill(UItemDataAsset* SkillKey) const;
+		URPGSkillItem GetSkill(UItemDataAsset* SkillKey) const;
 
 	UFUNCTION(BlueprintCallable, Category = Inventory)
-	bool TryGetToken(UItemDataAsset* TokenKey, FRPGTokenItemStruct& outToken) const;
+	bool TryGetToken(UItemDataAsset* TokenKey, URPGTokenItem& outToken) const;
 
 	UFUNCTION(BlueprintCallable, Category = Inventory)
-	FRPGTokenItemStruct GetToken(UItemDataAsset* TokenKey) const;
+		URPGTokenItem GetToken(UItemDataAsset* TokenKey) const;
 
 	UFUNCTION(BlueprintCallable, Category = Inventory)
 	bool TryGetWeapon(UItemDataAsset* WeaponKey, UWeaponData& outWeapon) const;
 
 	UFUNCTION(BlueprintCallable, Category = Inventory)
-	FRPGWeaponItemStruct GetWeapon(UItemDataAsset* WeaponKey) const;
+		UWeaponData GetWeapon(UItemDataAsset* WeaponKey) const;
 
 	UFUNCTION(BlueprintCallable, Category = Inventory)
 	bool TryGetBaseItemData(UItemDataAsset* ItemKey, ERPGItemType ItemType, UItemDataAsset& outItem) const;
@@ -90,7 +90,7 @@ public:
 	bool FindItem(UItemDataAsset* ItemKey, ERPGItemType& OutItemType, UItemDataAsset& OutItemData) const;
 
 	UFUNCTION(BlueprintCallable, Category = Inventory)
-	void GetItemsBaseInfo(UItemDataAsset ItemType, TMap<FString, UItemDataAsset>& OutItems) const;
+	void GetItemsBaseInfo(ERPGItemType ItemType, TMap<FString*, UItemDataAsset>& OutItems) const;
 
 	/** Returns true if this is a valid inventory slot */
 	UFUNCTION(BlueprintCallable, Category = Inventory)

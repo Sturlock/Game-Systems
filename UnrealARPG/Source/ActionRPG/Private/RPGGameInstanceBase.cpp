@@ -14,7 +14,7 @@
 URPGGameInstanceBase::URPGGameInstanceBase()
 {}
 
-bool URPGGameInstanceBase::ItemExists(FString ItemKey, ERPGItemType ItemType) const
+bool URPGGameInstanceBase::ItemExists(UItemDataAsset* ItemKey, ERPGItemType ItemType) const
 {
 	switch (ItemType)
 	{
@@ -30,92 +30,92 @@ bool URPGGameInstanceBase::ItemExists(FString ItemKey, ERPGItemType ItemType) co
 	return false;
 }
 
-bool URPGGameInstanceBase::TryGetPotion(FString PotionKey, FRPGPotionItemStruct& outPotion) const
+bool URPGGameInstanceBase::TryGetPotion(UItemDataAsset* Potion, URPGPotionItem& outPotion) const
 {
-	const FRPGPotionItemStruct* ptr = Potions.Find(PotionKey);
+	const URPGPotionItem* ptr = Potions.Find(Potion);
 	if (ptr != nullptr)
 	{
 		outPotion = *ptr;
 		return true;
 	}
-	outPotion = FRPGPotionItemStruct();
+	outPotion = URPGPotionItem();
 	return false;
 }
 
-FRPGPotionItemStruct URPGGameInstanceBase::GetPotion(FString PotionKey) const
+URPGPotionItem URPGGameInstanceBase::GetPotion(UItemDataAsset* Potion) const
 {
-	const FRPGPotionItemStruct* ptr = Potions.Find(PotionKey);
+	const URPGPotionItem* ptr = Potions.Find(Potion);
 	if (ptr != nullptr)
 	{
 		return *ptr;
 	}
-	return FRPGPotionItemStruct();
+	return URPGPotionItem();
 }
 
-bool URPGGameInstanceBase::TryGetSkill(FString SkillKey, FRPGSkillItemStruct& outSkill) const
+bool URPGGameInstanceBase::TryGetSkill(UItemDataAsset* Skill, URPGSkillItem& outSkill) const
 {
-	const FRPGSkillItemStruct* ptr = Skills.Find(SkillKey);
+	const URPGSkillItem* ptr = Skills.Find(Skill);
 	if (ptr != nullptr)
 	{
 		outSkill = *ptr;
 		return true;
 	}
-	outSkill = FRPGSkillItemStruct();
+	outSkill = URPGSkillItem();
 	return false;
 }
 
-FRPGSkillItemStruct URPGGameInstanceBase::GetSkill(FString SkillKey) const
+URPGSkillItem URPGGameInstanceBase::GetSkill(UItemDataAsset* Skill) const
 {
-	const FRPGSkillItemStruct* ptr = Skills.Find(SkillKey);
+	const URPGSkillItem* ptr = Skills.Find(Skill);
 	if (ptr != nullptr)
 	{
 		return *ptr;
 	}
-	return FRPGSkillItemStruct();
+	return URPGSkillItem();
 }
 
-bool URPGGameInstanceBase::TryGetToken(FString TokenKey, FRPGTokenItemStruct& outToken) const
+bool URPGGameInstanceBase::TryGetToken(UItemDataAsset* Token, URPGTokenItem& outToken) const
 {
-	const FRPGTokenItemStruct* ptr = Tokens.Find(TokenKey);
+	const URPGTokenItem* ptr = Tokens.Find(Token);
 	if (ptr != nullptr)
 	{
 		outToken = *ptr;
 		return true;
 	}
-	outToken = FRPGTokenItemStruct();
+	outToken = URPGTokenItem();
 	return false;
 }
 
-FRPGTokenItemStruct URPGGameInstanceBase::GetToken(FString TokenKey) const
+URPGTokenItem URPGGameInstanceBase::GetToken(UItemDataAsset* Token) const
 {
-	const FRPGTokenItemStruct* ptr = Tokens.Find(TokenKey);
+	const URPGTokenItem* ptr = Tokens.Find(Token);
 	if (ptr != nullptr)
 	{
 		return *ptr;
 	}
-	return FRPGTokenItemStruct();
+	return URPGTokenItem();
 }
 
-bool URPGGameInstanceBase::TryGetWeapon(FString WeaponKey, FRPGWeaponItemStruct& outWeapon) const
+bool URPGGameInstanceBase::TryGetWeapon(UItemDataAsset* Weapon, UWeaponData& outWeapon) const
 {
-	const FRPGWeaponItemStruct* ptr = Weapons.Find(WeaponKey);
+	const UWeaponData* ptr = Weapons.Find(Weapon);
 	if (ptr != nullptr)
 	{
 		outWeapon = *ptr;
 		return true;
 	}
-	outWeapon = FRPGWeaponItemStruct();
+	outWeapon = UWeaponData();
 	return false;
 }
 
-FRPGWeaponItemStruct URPGGameInstanceBase::GetWeapon(FString WeaponKey) const
+UWeaponData URPGGameInstanceBase::GetWeapon(UItemDataAsset* WeaponKey) const
 {
-	const FRPGWeaponItemStruct* ptr = Weapons.Find(WeaponKey);
+	const UWeaponData* ptr = Weapons.Find(WeaponKey);
 	if (ptr != nullptr)
 	{
 		return *ptr;
 	}
-	return FRPGWeaponItemStruct();
+	return UWeaponData();
 }
 
 bool URPGGameInstanceBase::TryGetBaseItemData(UItemDataAsset* ItemKey, ERPGItemType ItemType, UItemDataAsset& outItem) const
@@ -229,22 +229,22 @@ bool URPGGameInstanceBase::FindItem(UItemDataAsset* ItemKey, ERPGItemType& OutIt
 	return false;
 }
 
-void URPGGameInstanceBase::GetItemsBaseInfo(ERPGItemType ItemType, TMap<FString, UItemDataAsset>& OutItems) const
+void URPGGameInstanceBase::GetItemsBaseInfo(ERPGItemType ItemType, TMap<FString*, UItemDataAsset>& OutItems) const
 {
-	OutItems = TMap<FString, UItemDataAsset>();
+	OutItems = TMap<FString*, UItemDataAsset>();
 	switch (ItemType)
 	{
 	case ERPGItemType::Potion:
 	{
-		for (TPair<FString, FRPGPotionItemStruct> pair : Potions)
+		for (TPair<FString*, URPGPotionItem> pair : Potions)
 		{
-			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
+			OutItems.Add(pair.Key, pair.Value);
 		}
 		break;
 	}
 	case ERPGItemType::Skill:
 	{
-		for (TPair<FString, FRPGSkillItemStruct> pair : Skills)
+		for (TPair<UItemDataAsset*, URPGSkillItem> pair : Skills)
 		{
 			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
 		}
@@ -252,7 +252,7 @@ void URPGGameInstanceBase::GetItemsBaseInfo(ERPGItemType ItemType, TMap<FString,
 	}
 	case ERPGItemType::Token:
 	{
-		for (TPair<FString, FRPGTokenItemStruct> pair : Tokens)
+		for (TPair<UItemDataAsset*, URPGTokenItem> pair : Tokens)
 		{
 			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
 		}
@@ -260,7 +260,7 @@ void URPGGameInstanceBase::GetItemsBaseInfo(ERPGItemType ItemType, TMap<FString,
 	}
 	case ERPGItemType::Weapon:
 	{
-		for (TPair<FString, FRPGWeaponItemStruct> pair : Weapons)
+		for (TPair<UItemDataAsset*, UWeaponData> pair : Weapons)
 		{
 			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
 		}
@@ -268,9 +268,9 @@ void URPGGameInstanceBase::GetItemsBaseInfo(ERPGItemType ItemType, TMap<FString,
 	}
 	case ERPGItemType::Undefined:
 	{
-		for (TPair<FString, FRPGPotionItemStruct> pair : Potions)
+		for (TPair<FString, URPGPotionItem> pair : Potions)
 		{
-			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
+			OutItems.Add(pair.Key, pair.Value);
 		}
 		for (TPair<FString, FRPGSkillItemStruct> pair : Skills)
 		{
@@ -289,7 +289,7 @@ void URPGGameInstanceBase::GetItemsBaseInfo(ERPGItemType ItemType, TMap<FString,
 	}
 }
 
-bool URPGGameInstanceBase::IsValidItemSlot(FRPGItemSlot ItemSlot) const
+bool URPGGameInstanceBase::IsValidItemSlot(UItemDataAsset ItemSlot) const
 {
 	if (ItemSlot.IsValid())
 	{

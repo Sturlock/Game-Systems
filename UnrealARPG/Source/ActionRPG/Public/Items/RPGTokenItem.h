@@ -2,19 +2,18 @@
 
 #pragma once
 
-#include "Items/RPGItem.h"
+#include "ItemDataAsset.h"
 #include "RPGTokenItem.generated.h"
 
 /** Native structure for tokens*/
-USTRUCT(BlueprintType)
-struct ACTIONRPG_API FRPGTokenItemStruct : public FRPGItemStruct
+UCLASS(BlueprintType)
+class ACTIONRPG_API URPGTokenItem : public UItemDataAsset
 {
 	GENERATED_BODY()
 
 public:
 	/** Constructor */
-	FRPGTokenItemStruct()
-		: FRPGItemStruct()
+	URPGTokenItem()
 	{
 		ItemType = ERPGItemType::Token;
 		MaxCount = 0; // Infinite

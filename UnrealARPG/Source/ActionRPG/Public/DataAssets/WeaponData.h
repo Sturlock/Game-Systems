@@ -3,9 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/DataAsset.h"
-#include "Components/Image.h"
-#include "RPGAttributeSet.h"
 #include "ItemDataAsset.h"
 #include "JsonDataAssetBase.h"
 #include "weaponActor.h"
@@ -21,11 +18,13 @@ class ACTIONRPG_API UWeaponData : public UItemDataAsset
 {
 	GENERATED_BODY()
 public:
-
+	/** Constructor */
 	UWeaponData()
 	{
 		ItemType = ERPGItemType::Weapon;
 	}
+
+	/** Weapon actor to spawn */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Weapon)
-		TSubclassOf<AActor> WeaponActor;
+		TSubclassOf<AActor> weaponActor;
 };

@@ -2,19 +2,18 @@
 
 #pragma once
 
-#include "Items/RPGItem.h"
+#include "ItemDataAsset.h"
 #include "RPGSkillItem.generated.h"
 
 /** Native structure for skills*/
-USTRUCT(BlueprintType)
-struct ACTIONRPG_API FRPGSkillItemStruct : public FRPGItemStruct
+UCLASS(BlueprintType)
+class ACTIONRPG_API URPGSkillItem : public UItemDataAsset
 {
 	GENERATED_BODY()
 
 public:
 	/** Constructor */
-	FRPGSkillItemStruct()
-		: FRPGItemStruct()
+	URPGSkillItem()
 	{
 		ItemType = ERPGItemType::Skill;
 	}

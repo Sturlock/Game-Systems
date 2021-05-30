@@ -2,19 +2,18 @@
 
 #pragma once
 
-#include "Items/RPGItem.h"
+#include "ItemDataAsset.h"
 #include "RPGPotionItem.generated.h"
 
 /** Native structure for potions*/
-USTRUCT(BlueprintType)
-struct ACTIONRPG_API FRPGPotionItemStruct : public FRPGItemStruct
+UCLASS(BlueprintType)
+class ACTIONRPG_API URPGPotionItem : public UItemDataAsset
 {
 	GENERATED_BODY()
 
 public:
 	/** Constructor */
-	FRPGPotionItemStruct()
-		: FRPGItemStruct()			
+	URPGPotionItem()
 	{
 		ItemType = ERPGItemType::Potion;
 	}
