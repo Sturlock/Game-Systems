@@ -142,7 +142,7 @@ struct ACTIONRPG_API FRPGItemData
 
 /** Delegate called when an inventory item changes */
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnInventoryItemChanged, bool, bAdded, UItemDataAsset*, ItemKey, ERPGItemType, ItemType);
-DECLARE_MULTICAST_DELEGATE_ThreeParams(FOnInventoryItemChangedNative, bool, FString, ERPGItemType);
+DECLARE_MULTICAST_DELEGATE_ThreeParams(FOnInventoryItemChangedNative, bool, UItemDataAsset*, ERPGItemType);
 
 /** Delegate called when the contents of an inventory slot change */
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnSlottedItemChanged, FRPGItemSlot, ItemSlot, UItemDataAsset*, ItemKey, ERPGItemType, ItemType);

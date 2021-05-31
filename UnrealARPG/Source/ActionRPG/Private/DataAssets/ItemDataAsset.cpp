@@ -3,7 +3,10 @@
 
 #include "ItemDataAsset.h"
 
+UItemDataAsset::UItemDataAsset()
+{
 
+}
 
 bool UItemDataAsset::IsConsumable()
 {

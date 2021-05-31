@@ -37,11 +37,11 @@ bool ARPGPlayerControllerBase::AddInventoryItem(UItemDataAsset* NewItem, ERPGIte
 	FRPGItemData OldData;
 	GetInventoryItemData(NewItem, OldData);
 
-	UItemDataAsset itemData = GetGameInstance()->GetBaseItemData(NewItem, ItemType);
+	UItemDataAsset* itemData = GetGameInstance()->GetBaseItemData(NewItem, ItemType);
 
 	// Find modified data
 	FRPGItemData NewData = OldData;
-	NewData.UpdateItemData(FRPGItemData(ItemCount, ItemLevel, ItemType), itemData.MaxCount, itemData.MaxLevel);
+	NewData.UpdateItemData(FRPGItemData(ItemCount, ItemLevel, ItemType), itemData->MaxCount, itemData->MaxLevel);
 
 	if (OldData != NewData)
 	{
@@ -64,7 +64,7 @@ bool ARPGPlayerControllerBase::AddInventoryItem(UItemDataAsset* NewItem, ERPGIte
 	return false;
 }
 
-bool ARPGPlayerControllerBase::RemoveInventoryItem(UItemDataAsset* RemovedItem, int32 RemoveCount = 1)
+bool ARPGPlayerControllerBase::RemoveInventoryItem(UItemDataAsset* RemovedItem, int32 RemoveCount)
 {
 	if (!RemovedItem)
 	{
@@ -180,7 +180,7 @@ bool ARPGPlayerControllerBase::GetInventoryItemData(UItemDataAsset* Item, FRPGIt
 	return false;
 }
 
-UItemDataAsset* ARPGPlayerControllerBase::GetSlottedItem(FRPGItemSlot ItemSlot, UItemDataAsset& OutItemData) const
+UItemDataAsset* ARPGPlayerControllerBase::GetSlottedItem(FRPGItemSlot ItemSlot, UItemDataAsset*& OutItemData) const
 {
 	
 	 UItemDataAsset* const* FoundItem = SlottedItems.Find(ItemSlot);
@@ -192,17 +192,17 @@ UItemDataAsset* ARPGPlayerControllerBase::GetSlottedItem(FRPGItemSlot ItemSlot, 
 		URPGGameInstanceBase* gi = World ? World->GetGameInstance<URPGGameInstanceBase>() : nullptr;
 		if (!gi || !gi->FindItem(*FoundItem, itemType, OutItemData))
 		{
-			OutItemData = UItemDataAsset();
+			OutItemData = nullptr;
 		}
 		return *FoundItem;
 	}
-	OutItemData = UItemDataAsset();
+	OutItemData = nullptr;
 	return nullptr;
 }
 
-void ARPGPlayerControllerBase::GetSlottedItems(TArray<FString>& Items, ERPGItemType ItemType, bool bOutputEmptyIndexes)
+void ARPGPlayerControllerBase::GetSlottedItems(TArray<UItemDataAsset*>& Items, ERPGItemType ItemType, bool bOutputEmptyIndexes)
 {
-	for (TPair<FRPGItemSlot, FString>& Pair : SlottedItems)
+	for (TPair<FRPGItemSlot, UItemDataAsset*>& Pair : SlottedItems)
 	{
 		if (Pair.Key.ItemType == ItemType || ItemType == ERPGItemType::Undefined)
 		{
@@ -213,7 +213,7 @@ void ARPGPlayerControllerBase::GetSlottedItems(TArray<FString>& Items, ERPGItemT
 
 void ARPGPlayerControllerBase::FillEmptySlots()
 {
-	for (const TPair<FString, FRPGItemData>& Pair : InventoryData)
+	for (const TPair<UItemDataAsset*, FRPGItemData>& Pair : InventoryData)
 	{
 		FillEmptySlotWithItem(Pair.Key, Pair.Value.ItemType);
 	}
@@ -233,12 +233,12 @@ void ARPGPlayerControllerBase::InitInventory()
 	{
 		for (int32 SlotNumber = 0; SlotNumber < Pair.Value; SlotNumber++)
 		{
-			SlottedItems.Add(FRPGItemSlot(Pair.Key, SlotNumber), "");
+			SlottedItems.Add(FRPGItemSlot(Pair.Key, SlotNumber));
 		}
 	}
 
 	// Copy from save game into controller data
-	for (const TPair<FString, FRPGItemData>& ItemPair : GetGameInstance()->DefaultInventoryItems)
+	for (const TPair<UItemDataAsset*, FRPGItemData>& ItemPair : GetGameInstance()->DefaultInventoryItems)
 	{
 		InventoryData.Add(ItemPair.Key, ItemPair.Value);
 	}
@@ -257,10 +257,10 @@ URPGGameInstanceBase* ARPGPlayerControllerBase::GetGameInstance()
 	return GameInstance;
 }
 
-bool ARPGPlayerControllerBase::FillEmptySlotWithItem(FString NewItem, ERPGItemType ItemType)
+bool ARPGPlayerControllerBase::FillEmptySlotWithItem(UItemDataAsset* NewItem, ERPGItemType ItemType)
 {
 	FRPGItemSlot EmptySlot;
-	for (TPair<FRPGItemSlot, FString>& Pair : SlottedItems)
+	for (TPair<FRPGItemSlot, UItemDataAsset*>& Pair : SlottedItems)
 	{
 		if (Pair.Key.ItemType == ItemType)
 		{
@@ -269,7 +269,7 @@ bool ARPGPlayerControllerBase::FillEmptySlotWithItem(FString NewItem, ERPGItemTy
 				// Item is already slotted
 				return false;
 			}
-			else if (Pair.Value.IsEmpty() && (!EmptySlot.IsValid() || EmptySlot.SlotNumber > Pair.Key.SlotNumber))
+			else if (!Pair.Value && (!EmptySlot.IsValid() || EmptySlot.SlotNumber > Pair.Key.SlotNumber))
 			{
 				// We found an empty slot worth filling
 				EmptySlot = Pair.Key;

@@ -6,6 +6,11 @@
 #include "GameFramework/PlayerController.h"
 #include "RPGInventoryInterface.h"
 #include "ItemDataAsset.h"
+#include "DataAssets/WeaponData.h"
+#include "RPGTypes.h"
+#include "Items/RPGPotionItem.h"
+#include "Items/RPGSkillItem.h"
+#include "Items/RPGTokenItem.h"
 #include "RPGPlayerControllerBase.generated.h"
 
 class URPGGameInstanceBase;
@@ -42,11 +47,11 @@ public:
 
 	/** Called after the inventory was changed and we notified all delegates */
 	UFUNCTION(BlueprintImplementableEvent, Category = Inventory)
-	void InventoryItemChanged(bool bAdded, UItemDataAsset* Item);
+	void InventoryItemChanged(bool bAdded, UItemDataAsset* Item, ERPGItemType ItemType);
 
 	/** Called after an item was equipped and we notified all delegates */
 	UFUNCTION(BlueprintImplementableEvent, Category = Inventory)
-	void SlottedItemChanged(FRPGItemSlot ItemSlot, UItemDataAsset* Item);
+	void SlottedItemChanged(FRPGItemSlot ItemSlot, UItemDataAsset* Item, ERPGItemType ItemType);
 
 	/** Native version above, called before BP delegate */
 	FOnSlottedItemChangedNative OnSlottedItemChangedNative;
@@ -64,7 +69,7 @@ public:
 
 	/** Remove an inventory item, will also remove from slots. A remove count of <= 0 means to remove all copies */
 	UFUNCTION(BlueprintCallable, Category = Inventory)
-	bool RemoveInventoryItem(UItemDataAsset* RemovedItem, int32 RemoveCount = 1);
+	bool RemoveInventoryItem(UItemDataAsset* RemovedItem, int32 RemoveCount);
 
 	/** Returns all inventory items of a given type. If none is passed as type it will return all */
 	UFUNCTION(BlueprintCallable, Category = Inventory)
@@ -84,7 +89,7 @@ public:
 
 	/** Returns item in slot, or null if empty */
 	UFUNCTION(BlueprintPure, Category = Inventory)
-	UItemDataAsset* GetSlottedItem(FRPGItemSlot ItemSlot, UItemDataAsset& OutItemData) const;
+	UItemDataAsset* GetSlottedItem(FRPGItemSlot ItemSlot, UItemDataAsset*& OutItemData) const;
 
 	/** Returns all slotted items of a given type. If none is passed as type it will return all */
 	UFUNCTION(BlueprintCallable, Category = Inventory)

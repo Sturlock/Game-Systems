@@ -98,7 +98,7 @@ void ARPGCharacterBase::RemoveStartupGameplayAbilities()
 	}
 }
 
-void ARPGCharacterBase::OnItemSlotChanged(FRPGItemSlot ItemSlot, FString ItemKey, ERPGItemType ItemType)
+void ARPGCharacterBase::OnItemSlotChanged(FRPGItemSlot ItemSlot, UItemDataAsset* ItemKey, ERPGItemType ItemType)
 {
 	RefreshSlottedGameplayAbilities();
 }
@@ -127,33 +127,33 @@ void ARPGCharacterBase::FillSlottedAbilitySpecs(TMap<FRPGItemSlot, FGameplayAbil
 	// Now potentially override with inventory
 	if (InventorySource)
 	{
-		const TMap<FRPGItemSlot, FString>& SlottedItemMap = InventorySource->GetSlottedItemMap();
+		const TMap<FRPGItemSlot, UItemDataAsset*>& SlottedItemMap = InventorySource->GetSlottedItemMap();
 
-		for (const TPair<FRPGItemSlot, FString>& ItemPair : SlottedItemMap)
+		for (const TPair<FRPGItemSlot, UItemDataAsset*>& ItemPair : SlottedItemMap)
 		{
-			FString itemKey = ItemPair.Value;
+			UItemDataAsset* itemKey = ItemPair.Value;
 			FRPGItemSlot itemSlot = ItemPair.Key;
 
 			// Use the character level as default
 			int32 AbilityLevel = GetCharacterLevel();
 
-			UItemDataAsset itemData;
+			UItemDataAsset* itemData;
 			if (GetGameInstance() && GetGameInstance()->TryGetBaseItemData(itemKey, itemSlot.ItemType, itemData))
 			{
-				if (itemData.ItemType == ERPGItemType::Weapon)
+				if (itemData->ItemType == ERPGItemType::Weapon)
 				{
 					FRPGWeaponItemStruct weapon;
 
 					// Override the ability level to use the data from the slotted item
-					AbilityLevel = itemData.AbilityLevel;
+					AbilityLevel = itemData->AbilityLevel;
 				}
 
-				if (itemData.GrantedAbility)
+				if (itemData->GrantedAbility)
 				{
 					// This will override anything from default
 					// This needs to be reviewed to ensure that the ability owner beign set to game instance is acceptable
 					// May be instances of code trying to cast old data types from object owner :(
-					SlottedAbilitySpecs.Add(ItemPair.Key, FGameplayAbilitySpec(itemData.GrantedAbility, AbilityLevel, INDEX_NONE, GetGameInstance()));
+					SlottedAbilitySpecs.Add(ItemPair.Key, FGameplayAbilitySpec(itemData->GrantedAbility, AbilityLevel, INDEX_NONE, GetGameInstance()));
 				}
 			}
 		}

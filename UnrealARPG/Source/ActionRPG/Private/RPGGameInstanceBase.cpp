@@ -19,131 +19,131 @@ bool URPGGameInstanceBase::ItemExists(UItemDataAsset* ItemKey, ERPGItemType Item
 	switch (ItemType)
 	{
 	case ERPGItemType::Potion:
-		return Potions.Contains(ItemKey);
+		return Potions.Contains((URPGPotionItem*)ItemKey);
 	case ERPGItemType::Skill:
-		return Skills.Contains(ItemKey);
+		return Skills.Contains((URPGSkillItem*)ItemKey);
 	case ERPGItemType::Token:
-		return Tokens.Contains(ItemKey);
+		return Tokens.Contains((URPGTokenItem*)ItemKey);
 	case ERPGItemType::Weapon:
-		return Weapons.Contains(ItemKey);
+		return Weapons.Contains((UWeaponData*)ItemKey);
 	}
 	return false;
 }
 
-bool URPGGameInstanceBase::TryGetPotion(UItemDataAsset* Potion, URPGPotionItem& outPotion) const
+bool URPGGameInstanceBase::TryGetPotion(URPGPotionItem* PotionKey, URPGPotionItem*& outPotion) const
 {
-	const URPGPotionItem* ptr = Potions.Find(Potion);
+	URPGPotionItem* const* ptr = Potions.Find(PotionKey);
 	if (ptr != nullptr)
 	{
 		outPotion = *ptr;
 		return true;
 	}
-	outPotion = URPGPotionItem();
+	outPotion = nullptr;
 	return false;
 }
 
-URPGPotionItem URPGGameInstanceBase::GetPotion(UItemDataAsset* Potion) const
+URPGPotionItem* URPGGameInstanceBase::GetPotion(URPGPotionItem* PotionKey) const
 {
-	const URPGPotionItem* ptr = Potions.Find(Potion);
+	URPGPotionItem* const* ptr = Potions.Find(PotionKey);
 	if (ptr != nullptr)
 	{
 		return *ptr;
 	}
-	return URPGPotionItem();
+	return nullptr;
 }
 
-bool URPGGameInstanceBase::TryGetSkill(UItemDataAsset* Skill, URPGSkillItem& outSkill) const
+bool URPGGameInstanceBase::TryGetSkill(URPGSkillItem* SkillKey, URPGSkillItem*& outSkill) const
 {
-	const URPGSkillItem* ptr = Skills.Find(Skill);
+	 URPGSkillItem* const* ptr = Skills.Find(SkillKey);
 	if (ptr != nullptr)
 	{
 		outSkill = *ptr;
 		return true;
 	}
-	outSkill = URPGSkillItem();
+	outSkill = nullptr;
 	return false;
 }
 
-URPGSkillItem URPGGameInstanceBase::GetSkill(UItemDataAsset* Skill) const
+URPGSkillItem* URPGGameInstanceBase::GetSkill(URPGSkillItem* Skill) const
 {
-	const URPGSkillItem* ptr = Skills.Find(Skill);
+	URPGSkillItem* const* ptr = Skills.Find(Skill);
 	if (ptr != nullptr)
 	{
 		return *ptr;
 	}
-	return URPGSkillItem();
+	return nullptr;
 }
 
-bool URPGGameInstanceBase::TryGetToken(UItemDataAsset* Token, URPGTokenItem& outToken) const
+bool URPGGameInstanceBase::TryGetToken(URPGTokenItem* Token, URPGTokenItem*& outToken) const
 {
-	const URPGTokenItem* ptr = Tokens.Find(Token);
+	URPGTokenItem* const* ptr = Tokens.Find(Token);
 	if (ptr != nullptr)
 	{
 		outToken = *ptr;
 		return true;
 	}
-	outToken = URPGTokenItem();
+	outToken = nullptr;
 	return false;
 }
 
-URPGTokenItem URPGGameInstanceBase::GetToken(UItemDataAsset* Token) const
+URPGTokenItem* URPGGameInstanceBase::GetToken(URPGTokenItem* Token) const
 {
-	const URPGTokenItem* ptr = Tokens.Find(Token);
+	URPGTokenItem* const* ptr = Tokens.Find(Token);
 	if (ptr != nullptr)
 	{
 		return *ptr;
 	}
-	return URPGTokenItem();
+	return nullptr;
 }
 
-bool URPGGameInstanceBase::TryGetWeapon(UItemDataAsset* Weapon, UWeaponData& outWeapon) const
+bool URPGGameInstanceBase::TryGetWeapon(UWeaponData* Weapon, UWeaponData*& outWeapon) const
 {
-	const UWeaponData* ptr = Weapons.Find(Weapon);
+	UWeaponData* const* ptr = Weapons.Find(Weapon);
 	if (ptr != nullptr)
 	{
 		outWeapon = *ptr;
 		return true;
 	}
-	outWeapon = UWeaponData();
+	outWeapon = nullptr;
 	return false;
 }
 
-UWeaponData URPGGameInstanceBase::GetWeapon(UItemDataAsset* WeaponKey) const
+UWeaponData* URPGGameInstanceBase::GetWeapon(UWeaponData* WeaponKey) const
 {
-	const UWeaponData* ptr = Weapons.Find(WeaponKey);
+	UWeaponData* const* ptr = Weapons.Find(WeaponKey);
 	if (ptr != nullptr)
 	{
 		return *ptr;
 	}
-	return UWeaponData();
+	return nullptr;
 }
 
-bool URPGGameInstanceBase::TryGetBaseItemData(UItemDataAsset* ItemKey, ERPGItemType ItemType, UItemDataAsset& outItem) const
+bool URPGGameInstanceBase::TryGetBaseItemData(UItemDataAsset* ItemKey, ERPGItemType ItemType, UItemDataAsset*& outItem) const
 {
 	switch (ItemType)
 	{
 	case ERPGItemType::Potion:
 	{
-		UItemDataAsset* ptr = (UItemDataAsset*)Potions.Find(ItemKey);
-		if (ptr != nullptr) outItem = *ptr;
+		UItemDataAsset* ptr = (UItemDataAsset*)Potions.Find((URPGPotionItem*)ItemKey);
+		if (ptr != nullptr) outItem = ptr;
 		return ptr != nullptr;
 	}		
 	case ERPGItemType::Skill:
 	{
-		UItemDataAsset* ptr = (UItemDataAsset*)Skills.Find(ItemKey);
-		if (ptr != nullptr) outItem = *ptr;
+		UItemDataAsset* ptr = (UItemDataAsset*)Skills.Find((URPGSkillItem*)ItemKey);
+		if (ptr != nullptr) outItem = ptr;
 		return ptr != nullptr;
 	}
 	case ERPGItemType::Token:
 	{
-		UItemDataAsset* ptr = (UItemDataAsset*)Tokens.Find(ItemKey);
-		if (ptr != nullptr) outItem = *ptr;
+		UItemDataAsset* ptr = (UItemDataAsset*)Tokens.Find((URPGTokenItem*)ItemKey);
+		if (ptr != nullptr) outItem = ptr;
 		return ptr != nullptr;
 	}
 	case ERPGItemType::Weapon:
 	{
-		UItemDataAsset* ptr = (UItemDataAsset*)Weapons.Find(ItemKey);
-		if (ptr != nullptr) outItem = *ptr;
+		UItemDataAsset* ptr = (UItemDataAsset*)Weapons.Find((UWeaponData*)ItemKey);
+		if (ptr != nullptr) outItem = ptr;
 		return ptr != nullptr;
 	}
 	case ERPGItemType::Undefined:
@@ -151,145 +151,145 @@ bool URPGGameInstanceBase::TryGetBaseItemData(UItemDataAsset* ItemKey, ERPGItemT
 		bool found = FindItem(ItemKey, itemType, outItem);
 		return found;
 	}
-	outItem = UItemDataAsset();
+	outItem = nullptr;
 	return false;
 }
 
-UItemDataAsset URPGGameInstanceBase::GetBaseItemData(UItemDataAsset* ItemKey, ERPGItemType ItemType) const
+UItemDataAsset* URPGGameInstanceBase::GetBaseItemData(UItemDataAsset* ItemKey, ERPGItemType ItemType) const
 {
 	switch (ItemType)
 	{
 	case ERPGItemType::Potion:
 	{
-		UItemDataAsset* ptr = (UItemDataAsset*)Potions.Find(ItemKey);
-		if (ptr != nullptr) return *ptr;
-		else return UItemDataAsset();
+		UItemDataAsset* ptr = (UItemDataAsset*)Potions.Find((URPGPotionItem*)ItemKey);
+		if (ptr != nullptr) return ptr;
+		else return nullptr;
 	}
 	case ERPGItemType::Skill:
 	{
-		UItemDataAsset* ptr = (UItemDataAsset*)Skills.Find(ItemKey);
-		if (ptr != nullptr) return *ptr;
-		else return UItemDataAsset();
+		UItemDataAsset* ptr = (UItemDataAsset*)Skills.Find((URPGSkillItem*)ItemKey);
+		if (ptr != nullptr) return ptr;
+		else return nullptr;
 	}
 	case ERPGItemType::Token:
 	{
-		UItemDataAsset* ptr = (UItemDataAsset*)Tokens.Find(ItemKey);
-		if (ptr != nullptr) return *ptr;
-		else return UItemDataAsset();
+		UItemDataAsset* ptr = (UItemDataAsset*)Tokens.Find((URPGTokenItem*)ItemKey);
+		if (ptr != nullptr) return ptr;
+		else return nullptr;
 	}
 	case ERPGItemType::Weapon:
 	{
-		UItemDataAsset* ptr = (UItemDataAsset*)Weapons.Find(ItemKey);
-		if (ptr != nullptr) return *ptr;
-		else return UItemDataAsset();
+		UItemDataAsset* ptr = (UItemDataAsset*)Weapons.Find((UWeaponData*)ItemKey);
+		if (ptr != nullptr) return ptr;
+		else return nullptr;
 	}
 	case ERPGItemType::Undefined:
 	{
 		ERPGItemType itemType;
-		UItemDataAsset itemData;
+		UItemDataAsset* itemData;
 		FindItem(ItemKey, itemType, itemData);
 		return itemData;
 	}
 	}
-	return UItemDataAsset();
+	return nullptr;
 }
 
-bool URPGGameInstanceBase::FindItem(UItemDataAsset* ItemKey, ERPGItemType& OutItemType, UItemDataAsset& OutItemData) const
+bool URPGGameInstanceBase::FindItem(UItemDataAsset* ItemKey, ERPGItemType& OutItemType, UItemDataAsset*& OutItemData) const
 {
-	UItemDataAsset* ptr = (UItemDataAsset*)Potions.Find(ItemKey);
+	UItemDataAsset* ptr = (UItemDataAsset*)Potions.Find((URPGPotionItem*)ItemKey);
 	if (ptr != nullptr)
 	{
 		OutItemType = ERPGItemType::Potion;
-		OutItemData = *ptr;
+		OutItemData = ptr;
 		return true;
 	}
-	ptr = (UItemDataAsset*)Skills.Find(ItemKey);
+	ptr = (UItemDataAsset*)Skills.Find((URPGSkillItem*)ItemKey);
 	if (ptr != nullptr)
 	{
 		OutItemType = ERPGItemType::Skill;
-		OutItemData = *ptr;
+		OutItemData = ptr;
 		return true;
 	}
-	ptr = (UItemDataAsset*)Tokens.Find(ItemKey);
+	ptr = (UItemDataAsset*)Tokens.Find((URPGTokenItem*)ItemKey);
 	if (ptr != nullptr)
 	{
 		OutItemType = ERPGItemType::Token;
-		OutItemData = *ptr;
+		OutItemData = ptr;
 		return true;
 	}
-	ptr = (UItemDataAsset*)Weapons.Find(ItemKey);
+	ptr = (UItemDataAsset*)Weapons.Find((UWeaponData*)ItemKey);
 	if (ptr != nullptr)
 	{
 		OutItemType = ERPGItemType::Weapon;
-		OutItemData = *ptr;
+		OutItemData = ptr;
 		return true;
 	}
 	OutItemType = ERPGItemType::Undefined;
-	OutItemData = UItemDataAsset();
+	OutItemData = nullptr;
 	return false;
 }
 
-void URPGGameInstanceBase::GetItemsBaseInfo(ERPGItemType ItemType, TMap<FString*, UItemDataAsset>& OutItems) const
+void URPGGameInstanceBase::GetItemsBaseInfo(ERPGItemType ItemType, TSet<UItemDataAsset*>& OutItems) const
 {
-	OutItems = TMap<FString*, UItemDataAsset>();
+	OutItems = TSet<UItemDataAsset*>();
 	switch (ItemType)
 	{
 	case ERPGItemType::Potion:
 	{
-		for (TPair<FString*, URPGPotionItem> pair : Potions)
+		for (URPGPotionItem* pair : Potions)
 		{
-			OutItems.Add(pair.Key, pair.Value);
+			OutItems.Add(pair);
 		}
 		break;
 	}
 	case ERPGItemType::Skill:
 	{
-		for (TPair<UItemDataAsset*, URPGSkillItem> pair : Skills)
+		for (URPGSkillItem* pair : Skills)
 		{
-			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
+			OutItems.Add(pair);
 		}
 		break;
 	}
 	case ERPGItemType::Token:
 	{
-		for (TPair<UItemDataAsset*, URPGTokenItem> pair : Tokens)
+		for (URPGTokenItem* pair : Tokens)
 		{
-			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
+			OutItems.Add(pair);
 		}
 		break;
 	}
 	case ERPGItemType::Weapon:
 	{
-		for (TPair<UItemDataAsset*, UWeaponData> pair : Weapons)
+		for (UWeaponData* pair : Weapons)
 		{
-			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
+			OutItems.Add(pair);
 		}
 		break;
 	}
 	case ERPGItemType::Undefined:
 	{
-		for (TPair<FString, URPGPotionItem> pair : Potions)
+		for (URPGPotionItem* pair : Potions)
 		{
-			OutItems.Add(pair.Key, pair.Value);
+			OutItems.Add(pair);
 		}
-		for (TPair<FString, FRPGSkillItemStruct> pair : Skills)
+		for (URPGSkillItem* pair : Skills)
 		{
-			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
+			OutItems.Add(pair);
 		}
-		for (TPair<FString, FRPGTokenItemStruct> pair : Tokens)
+		for (URPGTokenItem* pair : Tokens)
 		{
-			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
+			OutItems.Add(pair);
 		}
-		for (TPair<FString, FRPGWeaponItemStruct> pair : Weapons)
+		for (UWeaponData* pair : Weapons)
 		{
-			OutItems.Add(pair.Key, (UItemDataAsset)pair.Value);
+			OutItems.Add(pair);
 		}
 		break;
 	}
 	}
 }
 
-bool URPGGameInstanceBase::IsValidItemSlot(UItemDataAsset ItemSlot) const
+bool URPGGameInstanceBase::IsValidItemSlot(FRPGItemSlot ItemSlot) const
 {
 	if (ItemSlot.IsValid())
 	{

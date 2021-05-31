@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "UObject/ScriptInterface.h"
 #include "RPGInventoryInterface.h"
+#include "ItemDataAsset.h"
+#include "RPGTypes.h"
 #include "AbilitySystemInterface.h"
 #include "Abilities/RPGAbilitySystemComponent.h"
 #include "Abilities/RPGAttributeSet.h"
@@ -170,7 +172,7 @@ protected:
 		void OnMoveSpeedChanged(float DeltaValue, const struct FGameplayTagContainer& EventTags);
 
 	/** Called when slotted items change, bound to delegate on interface */
-	void OnItemSlotChanged(FRPGItemSlot ItemSlot, FString ItemKey, ERPGItemType ItemType);
+	void OnItemSlotChanged(FRPGItemSlot ItemSlot, UItemDataAsset* ItemKey, ERPGItemType ItemType);
 	void RefreshSlottedGameplayAbilities();
 
 	/** Apply the startup gameplay abilities and effects */
