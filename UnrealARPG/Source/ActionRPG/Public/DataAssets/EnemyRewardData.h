@@ -15,7 +15,7 @@ class ACTIONRPG_API UEnemyRewardData : public UJsonDataAssetBase
 	GENERATED_BODY()
 
 public:
-	UEnemyRewardData();
+	UEnemyRewardData(const FObjectInitializer& objectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Reward)
 		float TimeBonusPerKill;

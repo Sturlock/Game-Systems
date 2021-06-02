@@ -19,7 +19,7 @@ class ACTIONRPG_API UItemDataAsset : public UJsonDataAssetBase
 	GENERATED_BODY()
 
 public:
-	UItemDataAsset();
+	UItemDataAsset(const FObjectInitializer& objectInitializer);
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item)
 		ERPGItemType ItemType;

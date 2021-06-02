@@ -142,7 +142,7 @@ void ARPGCharacterBase::FillSlottedAbilitySpecs(TMap<FRPGItemSlot, FGameplayAbil
 			{
 				if (itemKey->ItemType == ERPGItemType::Weapon)
 				{
-					UWeaponData weapon;
+					UWeaponData* weapon = (UWeaponData*)itemKey;
 
 					// Override the ability level to use the data from the slotted item
 					AbilityLevel = itemKey->AbilityLevel;

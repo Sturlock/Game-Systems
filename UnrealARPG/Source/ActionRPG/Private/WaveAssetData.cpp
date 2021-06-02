@@ -1,6 +1,5 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
-
 #include "WaveAssetData.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
@@ -25,10 +24,9 @@ TSharedRef<FJsonObject> FWaveData::ToJson()
 	TSharedRef<FJsonObject> outJson = MakeShared<FJsonObject>();
 	outJson->SetNumberField("WaveTime", WaveTime);
 
-
 	TArray<TSharedPtr<FJsonValue>> objects = TArray<TSharedPtr<FJsonValue>>();
 
-	for (int i = 0; i <EnemiesGroup.Num(); i++)
+	for (int i = 0; i < EnemiesGroup.Num(); i++)
 	{
 		TSharedPtr<FJsonObject> jsonObject = EnemiesGroup[i].ToJson();
 		TSharedPtr<FJsonValueObject> jsonValueObject = MakeShared<FJsonValueObject>(FJsonValueObject(jsonObject));
@@ -43,7 +41,6 @@ TSharedRef<FJsonObject> FWaveData::ToJson()
 void FWaveData::FromJson(TSharedRef<FJsonObject> json)
 {
 	WaveTime = json->GetNumberField("WaveTime");
-
 
 	EnemiesGroup.Empty();
 	const TArray<TSharedPtr<FJsonValue>> valArray = json->GetArrayField("EnemiesGroup");
@@ -77,8 +74,8 @@ bool UWaveAssetData::FromJson(FJsonObject& jsonObject)
 	for (int i = 0; i < valueArray.Num(); i++)
 	{
 		FWaveData wave = FWaveData();
-			wave.FromJson(valueArray[i]->AsObject().ToSharedRef());
-			WaveData.Add(wave);
+		wave.FromJson(valueArray[i]->AsObject().ToSharedRef());
+		WaveData.Add(wave);
 	}
 	return true;
 }

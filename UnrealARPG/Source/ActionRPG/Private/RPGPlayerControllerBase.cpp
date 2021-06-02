@@ -180,25 +180,34 @@ bool ARPGPlayerControllerBase::GetInventoryItemData(UItemDataAsset* Item, FRPGIt
 	return false;
 }
 
-UItemDataAsset* ARPGPlayerControllerBase::GetSlottedItem(FRPGItemSlot ItemSlot, UItemDataAsset*& OutItemData) const
+UItemDataAsset* ARPGPlayerControllerBase::GetSlottedItem(FRPGItemSlot ItemSlot) const
 {
-	
-	 UItemDataAsset* const* FoundItem = SlottedItems.Find(ItemSlot);
+	UItemDataAsset* const* FoundItem = SlottedItems.Find(ItemSlot);
 
 	if (FoundItem)
 	{
-		ERPGItemType itemType;
-		UWorld* World = GetWorld();
-		URPGGameInstanceBase* gi = World ? World->GetGameInstance<URPGGameInstanceBase>() : nullptr;
-		if (!gi || !gi->FindItem(*FoundItem, itemType, OutItemData))
-		{
-			OutItemData = nullptr;
-		}
 		return *FoundItem;
 	}
-	OutItemData = nullptr;
 	return nullptr;
 }
+//UItemDataAsset* ARPGPlayerControllerBase::GetSlottedItem(FRPGItemSlot ItemSlot, UItemDataAsset*& OutItemData) const
+//{
+//	UItemDataAsset* const* FoundItem = SlottedItems.Find(ItemSlot);
+//
+//	if (FoundItem)
+//	{
+//		ERPGItemType itemType;
+//		UWorld* World = GetWorld();
+//		URPGGameInstanceBase* gi = World ? World->GetGameInstance<URPGGameInstanceBase>() : nullptr;
+//		if (!gi || !gi->FindItem(*FoundItem, itemType, OutItemData))
+//		{
+//			OutItemData = nullptr;
+//		}
+//		return *FoundItem;
+//	}
+//	OutItemData = nullptr;
+//	return nullptr;
+//}
 
 void ARPGPlayerControllerBase::GetSlottedItems(TArray<UItemDataAsset*>& Items, ERPGItemType ItemType, bool bOutputEmptyIndexes)
 {
@@ -253,7 +262,7 @@ URPGGameInstanceBase* ARPGPlayerControllerBase::GetGameInstance()
 	{
 		UWorld* World = GetWorld();
 		GameInstance = World ? World->GetGameInstance<URPGGameInstanceBase>() : nullptr;
-	}	
+	}
 	return GameInstance;
 }
 

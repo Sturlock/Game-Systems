@@ -19,12 +19,14 @@ class ACTIONRPG_API UWeaponData : public UItemDataAsset
 	GENERATED_BODY()
 public:
 	/** Constructor */
-	UWeaponData()
-	{
-		ItemType = ERPGItemType::Weapon;
-	}
+	UWeaponData(const FObjectInitializer& objectInitializer);
+	UPROPERTY()
+	int32 item_type;
 
 	/** Weapon actor to spawn */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Weapon)
 		TSubclassOf<AActor> weaponActor;
+
+	virtual TSharedPtr<FJsonObject> ToJson() override;
+	virtual bool FromJson(FJsonObject& jsonObject) override;
 };

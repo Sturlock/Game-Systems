@@ -13,8 +13,5 @@ class ACTIONRPG_API URPGSkillItem : public UItemDataAsset
 
 public:
 	/** Constructor */
-	URPGSkillItem()
-	{
-		ItemType = ERPGItemType::Skill;
-	}
+	URPGSkillItem(const FObjectInitializer& objectInitializer);
 };

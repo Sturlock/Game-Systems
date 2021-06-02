@@ -89,7 +89,7 @@ public:
 
 	/** Returns item in slot, or null if empty */
 	UFUNCTION(BlueprintPure, Category = Inventory)
-	UItemDataAsset* GetSlottedItem(FRPGItemSlot ItemSlot, UItemDataAsset*& OutItemData) const;
+	UItemDataAsset* GetSlottedItem(FRPGItemSlot ItemSlot) const;
 
 	/** Returns all slotted items of a given type. If none is passed as type it will return all */
 	UFUNCTION(BlueprintCallable, Category = Inventory)

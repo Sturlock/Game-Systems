@@ -13,9 +13,8 @@ class ACTIONRPG_API URPGTokenItem : public UItemDataAsset
 
 public:
 	/** Constructor */
-	URPGTokenItem()
-	{
-		ItemType = ERPGItemType::Token;
-		MaxCount = 0; // Infinite
-	}
+	URPGTokenItem(const FObjectInitializer& objectInitializer);
+
+	virtual TSharedPtr<FJsonObject> ToJson() override;
+	virtual bool FromJson(FJsonObject& jsonObject) override;
 };

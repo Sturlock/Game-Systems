@@ -54,7 +54,7 @@ URPGPotionItem* URPGGameInstanceBase::GetPotion(URPGPotionItem* PotionKey) const
 
 bool URPGGameInstanceBase::TryGetSkill(URPGSkillItem* SkillKey, URPGSkillItem*& outSkill) const
 {
-	 URPGSkillItem* const* ptr = Skills.Find(SkillKey);
+	URPGSkillItem* const* ptr = Skills.Find(SkillKey);
 	if (ptr != nullptr)
 	{
 		outSkill = *ptr;
@@ -127,7 +127,7 @@ bool URPGGameInstanceBase::TryGetBaseItemData(UItemDataAsset* ItemKey, ERPGItemT
 		UItemDataAsset* ptr = (UItemDataAsset*)Potions.Find((URPGPotionItem*)ItemKey);
 		if (ptr != nullptr) outItem = ptr;
 		return ptr != nullptr;
-	}		
+	}
 	case ERPGItemType::Skill:
 	{
 		UItemDataAsset* ptr = (UItemDataAsset*)Skills.Find((URPGSkillItem*)ItemKey);

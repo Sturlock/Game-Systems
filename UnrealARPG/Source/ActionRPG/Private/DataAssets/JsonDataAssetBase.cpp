@@ -2,3 +2,10 @@
 
 #include "JsonDataAssetBase.h"
 
+UJsonDataAssetBase::UJsonDataAssetBase(const FObjectInitializer& objectInitializer)
+
+	: Super(objectInitializer)
+
+{
+	// Constructor logic goes here
+}

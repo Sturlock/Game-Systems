@@ -3,7 +3,6 @@
 #include "RPGBlueprintLibrary.h"
 #include "ActionRPGLoadingScreen.h"
 
-
 URPGBlueprintLibrary::URPGBlueprintLibrary(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {

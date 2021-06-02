@@ -13,8 +13,8 @@ class ACTIONRPG_API URPGPotionItem : public UItemDataAsset
 
 public:
 	/** Constructor */
-	URPGPotionItem()
-	{
-		ItemType = ERPGItemType::Potion;
-	}
+	URPGPotionItem(const FObjectInitializer& objectInitializer);
+
+	virtual TSharedPtr<FJsonObject> ToJson() override;
+	virtual bool FromJson(FJsonObject& jsonObject) override;
 };
