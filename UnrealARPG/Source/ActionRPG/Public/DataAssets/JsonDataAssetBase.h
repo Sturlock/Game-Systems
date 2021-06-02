@@ -15,7 +15,10 @@ class ACTIONRPG_API UJsonDataAssetBase : public UDataAsset
 {
 	GENERATED_BODY()
 public:
-	UJsonDataAssetBase();
+	UJsonDataAssetBase() 
+	{
+		JsonObjectKey = "ExampleKey";
+	}
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = JSON)
 		FString JsonObjectKey;

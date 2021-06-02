@@ -2,7 +2,3 @@
 
 #include "JsonDataAssetBase.h"
 
-UJsonDataAssetBase::UJsonDataAssetBase()
-{
-	JsonObjectKey = "ExampleKey";
-}

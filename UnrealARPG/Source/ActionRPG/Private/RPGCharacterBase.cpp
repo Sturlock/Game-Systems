@@ -140,20 +140,20 @@ void ARPGCharacterBase::FillSlottedAbilitySpecs(TMap<FRPGItemSlot, FGameplayAbil
 			UItemDataAsset* itemData;
 			if (GetGameInstance() && GetGameInstance()->TryGetBaseItemData(itemKey, itemSlot.ItemType, itemData))
 			{
-				if (itemData->ItemType == ERPGItemType::Weapon)
+				if (itemKey->ItemType == ERPGItemType::Weapon)
 				{
-					FRPGWeaponItemStruct weapon;
+					UWeaponData weapon;
 
 					// Override the ability level to use the data from the slotted item
-					AbilityLevel = itemData->AbilityLevel;
+					AbilityLevel = itemKey->AbilityLevel;
 				}
 
-				if (itemData->GrantedAbility)
+				if (itemKey->GrantedAbility)
 				{
 					// This will override anything from default
 					// This needs to be reviewed to ensure that the ability owner beign set to game instance is acceptable
 					// May be instances of code trying to cast old data types from object owner :(
-					SlottedAbilitySpecs.Add(ItemPair.Key, FGameplayAbilitySpec(itemData->GrantedAbility, AbilityLevel, INDEX_NONE, GetGameInstance()));
+					SlottedAbilitySpecs.Add(ItemPair.Key, FGameplayAbilitySpec(itemKey->GrantedAbility, AbilityLevel, INDEX_NONE, GetGameInstance()));
 				}
 			}
 		}
