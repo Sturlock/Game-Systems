@@ -20,8 +20,6 @@ class ACTIONRPG_API UWeaponData : public UItemDataAsset
 public:
 	/** Constructor */
 	UWeaponData(const FObjectInitializer& objectInitializer);
-	UPROPERTY()
-	int32 item_type;
 
 	/** Weapon actor to spawn */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Weapon)

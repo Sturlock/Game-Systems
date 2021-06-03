@@ -14,4 +14,7 @@ class ACTIONRPG_API URPGSkillItem : public UItemDataAsset
 public:
 	/** Constructor */
 	URPGSkillItem(const FObjectInitializer& objectInitializer);
+
+	virtual TSharedPtr<FJsonObject> ToJson() override;
+	virtual bool FromJson(FJsonObject& jsonObject) override;
 };
